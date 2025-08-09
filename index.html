@@ -469,6 +469,7 @@
             if (confirm("Tem certeza que deseja limpar o carrinho?")) {
                 cart = [];
                 updateCart();
+                try { localStorage.removeItem(CART_KEY); } catch(e) {}
             }
         });
 
@@ -477,23 +478,35 @@
         let subtotal = 0;
         const deliveryFee = 5;
 
+        // --- Persistência do carrinho ---
+        const CART_KEY = 'vovolulu_cart_v1';
+
+        function saveCart() {
+            try { localStorage.setItem(CART_KEY, JSON.stringify(cart)); }
+            catch(e) { console.warn('Não foi possível salvar o carrinho:', e); }
+        }
+
+        function loadCart() {
+            try {
+                const raw = localStorage.getItem(CART_KEY);
+                if (raw) {
+                    const parsed = JSON.parse(raw);
+                    if (Array.isArray(parsed)) cart = parsed;
+                }
+            } catch(e) { console.warn('Não foi possível carregar o carrinho:', e); }
+            updateCart();
+        }
+
         // Toggle Cart
         function toggleCart() {
             cartSidebar.classList.toggle('cart-closed');
             cartSidebar.classList.toggle('cart-open');
             overlay.classList.toggle('hidden');
             document.body.classList.toggle('overflow-hidden');
-            // Marcar/Desmarcar o item 'Carrinho' da barra mobile conforme o estado
-            const mobileCartLink = document.getElementById('mobile-cart-btn');
-            if (mobileCartLink) {
-                const isOpen = cartSidebar.classList.contains('cart-open');
-                mobileCartLink.classList.toggle('text-[#F4A261]', isOpen);
-                // remove foco para não manter estilo de :focus
-                mobileCartLink.blur();
-            }
         }
 
         // Eventos do carrinho via delegação para capturar elementos carregados depois (ex: barra mobile)
+        document.addEventListener('DOMContentLoaded', loadCart);
         document.addEventListener('click', (e) => {
             const btn = e.target.closest('.cart-btn');
             if (btn) {
@@ -644,6 +657,7 @@
 
             document.getElementById('subtotal').textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
             document.getElementById('total').textContent = `R$ ${(subtotal + deliveryFee).toFixed(2).replace('.', ',')}`;
+            saveCart();
         }
 
         // Checkout
@@ -727,6 +741,7 @@
             // Clear cart after order is confirmed
             cart = [];
             updateCart();
+            try { localStorage.removeItem(CART_KEY); } catch(e) {}
 
             // Reset form
             checkoutForm.reset();
