@@ -456,8 +456,7 @@
         const closeCartBtn = document.getElementById('close-cart');
         const cartSidebar = document.getElementById('cart-sidebar');
         const overlay = document.getElementById('overlay');
-        const cartCounts = document.querySelectorAll('#cart-count, .cart-count');
-        const checkoutBtn = document.getElementById('checkout-btn');
+                const checkoutBtn = document.getElementById('checkout-btn');
         const closeCheckoutBtn = document.getElementById('close-checkout');
         const checkoutModal = document.getElementById('checkout-modal');
         const closeConfirmationBtn = document.getElementById('close-confirmation');
@@ -484,11 +483,23 @@
             cartSidebar.classList.toggle('cart-open');
             overlay.classList.toggle('hidden');
             document.body.classList.toggle('overflow-hidden');
+            // Marcar/Desmarcar o item 'Carrinho' da barra mobile conforme o estado
+            const mobileCartLink = document.getElementById('mobile-cart-btn');
+            if (mobileCartLink) {
+                const isOpen = cartSidebar.classList.contains('cart-open');
+                mobileCartLink.classList.toggle('text-[#F4A261]', isOpen);
+                // remove foco para não manter estilo de :focus
+                mobileCartLink.blur();
+            }
         }
 
-        // ✅ CORRETO: aplica evento a todos os botões do carrinho
-        cartBtns.forEach(btn => {
-            btn.addEventListener('click', toggleCart);
+        // Eventos do carrinho via delegação para capturar elementos carregados depois (ex: barra mobile)
+        document.addEventListener('click', (e) => {
+            const btn = e.target.closest('.cart-btn');
+            if (btn) {
+                e.preventDefault();
+                toggleCart();
+            }
         });
         closeCartBtn.addEventListener('click', toggleCart);
         overlay.addEventListener('click', toggleCart);
@@ -565,6 +576,7 @@
 
         // Update Cart
         function updateCart() {
+            const cartCounts = document.querySelectorAll('#cart-count, .cart-count');
             const cartItemsContainer = document.getElementById('cart-items');
             subtotal = 0;
 
@@ -743,10 +755,14 @@
             <i class="fas fa-box-open text-lg"></i>
             Combos
         </a>
-        <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#" id="mobile-cart-btn">
-            <i class="fas fa-shopping-cart text-lg"></i>
-            Carrinho
-        </a>
+        <a class="flex flex-col items-center text-xs hover:text-[#F4A261] cart-btn" href="#" id="mobile-cart-btn">
+  <span class="relative inline-block">
+    <i class="fas fa-shopping-cart text-lg"></i>
+    <span class="absolute -top-2 -right-3 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cart-count">0</span>
+  </span>
+  Carrinho
+</a>
+            
     </div>
 </body>
 
