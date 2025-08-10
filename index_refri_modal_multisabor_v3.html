@@ -69,19 +69,17 @@
 
             <!-- Menu central -->
             <nav class="flex space-x-8 text-lg font-medium">
-                <a href="index.html" class="hover:text-[#E63946] transition">Início</a>
+                <a href="index_refri_modal_multisabor_v3.html" class="hover:text-[#E63946] transition">Início</a>
                 <a href="AboutUs.html" class="hover:text-[#E63946] transition">Sobre Nós</a>
             </nav>
 
             <!-- Carrinho à direita -->
             <div>
-                <button class="relative cart-btn">
-                    <i class="fas fa-shopping-cart text-4xl"></i>
-                    <span
-                        class="absolute -top-2 -right-2 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs"
-                        id="cart-count">0</span>
-                </button>
-            </div>
+        <button class="relative cart-btn">
+          <i class="fas fa-shopping-cart text-4xl"></i>
+          <span class="absolute -top-2 -right-2 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" id="cart-count">0</span>
+        </button>
+      </div>
         </div>
 
     </header>
@@ -92,7 +90,7 @@
             <i class="fas fa-times text-xl">menu</i>
         </button>
         <nav class="flex flex-col space-y-4 text-lg font-medium text-[#5C4033]">
-            <a class="hover:text-[#E63946]" href="index.html">Início</a>
+            <a class="hover:text-[#E63946]" href="index_refri_modal_multisabor_v3.html">Início</a>
             <a class="hover:text-[#E63946]" href="AboutUs.html">Sobre Nós</a>
 
         </nav>
@@ -433,8 +431,10 @@
 
     <!-- Overlay -->
     <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" id="overlay"></div>
+    <script src="cart.js"></script>
     <script>
         // Mobile Menu Toggle
+        //Cart.updateCart();
         const menuBtn = document.getElementById('menu-btn');
         const mobileMenu = document.getElementById('mobile-menu');
 
@@ -480,10 +480,10 @@
 
         // ✅ CORRETO: aplica evento a todos os botões do carrinho
         cartBtns.forEach(btn => {
-            btn.addEventListener('click', toggleCart);
+            btn.addEventListener('click', Cart.toggleCart);
         });
-        closeCartBtn.addEventListener('click', toggleCart);
-        overlay.addEventListener('click', toggleCart);
+        closeCartBtn.addEventListener('click', Cart.toggleCart);
+        overlay.addEventListener('click', Cart.toggleCart);
 
 
         // Add to Cart
@@ -525,20 +525,19 @@
                     quantity: quantity
                 };
 
-                cart.push(product);
-                updateCart();
-                toggleCart();
+                Cart.addItem(product);
+
             });
         });
         document.getElementById('comboFamilia').addEventListener('click', ()=>{
-            cart.push({
+            Cart.addItem({
                 name: "Combo Familia",
                 price: 59.90,
                 quantity: 1
             });
-            updateCart();
-                toggleCart();
+
         });
+        
         // Quantity Buttons
         document.querySelectorAll('.quantity-btn').forEach(button => {
             button.addEventListener('click', function () {
@@ -633,7 +632,7 @@
                 return;
             }
 
-            toggleCart();
+            Cart.toggleCart();
             checkoutModal.classList.remove('hidden');
             document.body.classList.add('overflow-hidden');
         });
@@ -817,6 +816,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const price = 6.50;
 
   // open modal
+  //Cart.updateCart();
   document.querySelectorAll('.product-card .choose-flavor').forEach(btn => {
     btn.addEventListener('click', () => {
       modal.classList.remove('hidden');
@@ -871,15 +871,13 @@ document.addEventListener('DOMContentLoaded', () => {
       if (items.length === 0){console.log("items lenght===0");return;}
       
       items.forEach(({flavor, qty}) => {
-          
-              cart.push({ name: `Refrigerante 350ml - ${flavor}`, price: price, quantity: qty });
-              updateCart();
-            
-            
-
+          if (window.Cart && typeof Cart.addItem === 'function') {
+              Cart.addItem({ name: `Refrigerante 350ml - ${flavor}`, price, quantity: qty });
+              
+            }
     });
     closeModal();
-    toggleCart();
+    //Cart.updateCart;
   });
 });
 </script>
