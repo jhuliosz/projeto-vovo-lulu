@@ -225,7 +225,7 @@
                         </div>
                         
                         <button
-                            class="choose-flavor mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+                            class="choose-flavor mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition" type="button">
                             Escolher Sabor
                         </button>
     
@@ -813,6 +813,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const form = document.getElementById('refri-form');
   const addBtn = document.getElementById('refri-add');
   const closeBtn = document.getElementById('close-refri-modal');
+  
   const price = 6.50;
 
   // open modal
@@ -862,19 +863,23 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const items = Array.from(form.querySelectorAll('.refri-qty'))
+      e.preventDefault();
+      const items = Array.from(form.querySelectorAll('.refri-qty'))
       .map(el => ({ flavor: el.getAttribute('data-flavor'), qty: parseInt(el.textContent) || 0 }))
       .filter(it => it.qty > 0);
+      
+      if (items.length === 0){console.log("items lenght===0");return;}
+      
+      items.forEach(({flavor, qty}) => {
+          
+              cart.push({ name: `Refrigerante 350ml - ${flavor}`, price: price, quantity: qty });
+              updateCart();
+            
+            
 
-    if (items.length === 0) return;
-
-    items.forEach(({flavor, qty}) => {
-      if (window.Cart && typeof Cart.addItem === 'function') {
-        Cart.addItem({ name: `Refrigerante 350ml - ${flavor}`, price, quantity: qty });
-      }
     });
     closeModal();
+    toggleCart();
   });
 });
 </script>
