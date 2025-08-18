@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mini Pasteizinhos da Vovó Lulu | Delivery de Salgados Artesanais</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet" />
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet" />
+  <style>
+    body { font-family: 'Poppins', sans-serif; background-color: #FCEBD5; }
+    .title-font { font-family: 'Nunito', sans-serif; }
+    .cart-open { transform: translateX(0); }
+    .cart-closed { transform: translateX(100%); }
+    .floating-btn { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+  </style>
+</head>
+<body class="text-[#5C4033]">
+
+  <header class="bg-[#FCEBD5] text-[#5C4033] shadow-md py-4 px-4 md:px-8">
+    <!-- Header MOBILE -->
+    <div class="flex items-center justify-between md:hidden relative">
+      <!-- Menu hambúrguer à esquerda -->
+      <button id="menu-btn" title="menu-hmb">
+        <i class="fas fa-bars text-2xl"></i>
+      </button>
+
+      <!-- Logo centralizado -->
+      <div class="absolute left-1/2 transform -translate-x-1/2">
+        <img src="IMG/Logo2.png" alt="Logo" class="h-16">
+      </div>
+
+      <!-- Carrinho à direita -->
+      <button class="relative cart-btn">
+        <i class="fas fa-shopping-cart text-2xl"></i>
+        <span class="absolute -top-2 -right-2 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" id="cart-count">0</span>
+      </button>
+    </div>
+
+    <!-- Header DESKTOP -->
+    <div class="hidden md:flex justify-between items-center max-w-7xl mx-auto">
+      <!-- Logo à esquerda -->
+      <div class="flex items-center space-x-4">
+        <img src="IMG/Logo2.png" alt="Logo" class="h-24 md:h-32">
+      </div>
+
+      <!-- Menu central -->
+      <nav class="flex space-x-8 text-lg font-medium">
+        <a href="index.html" class="hover:text-[#E63946] transition">Início</a>
+        <a href="AboutUs.html" class="hover:text-[#E63946] transition">Sobre Nós</a>
+      </nav>
+
+      <!-- Carrinho à direita -->
+      <div>
+        <button class="relative cart-btn">
+          <i class="fas fa-shopping-cart text-4xl"></i>
+          <span class="absolute -top-2 -right-2 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" id="cart-count">0</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- Menu lateral mobile -->
+  <div id="mobile-menu" class="md:hidden hidden fixed top-0 left-0 w-64 h-full bg-white shadow-lg z-50 p-6">
+    <button class="text-gray-500 hover:text-gray-800 mb-4" onclick="document.getElementById('mobile-menu').classList.add('hidden')">
+      <i class="fas fa-times text-xl">menu</i>
+    </button>
+    <nav class="flex flex-col space-y-4 text-lg font-medium text-[#5C4033]">
+      <a class="hover:text-[#E63946]" href="index.html">Início</a>
+      <a class="hover:text-[#E63946]" href="AboutUs.html">Sobre Nós</a>
+    </nav>
+  </div>
+
+  <!-- Main Content -->
+  <main class="container mx-auto px-4 py-8 pb-24">
+    <!-- Promo Banner -->
+    <section class="mb-12 rounded-xl overflow-hidden shadow-lg">
+      <div class="bg-gradient-to-r from-[#E63946] to-[#F4A261] p-6 md:p-10 text-white">
+        <h2 class="title-font text-2xl md:text-4xl font-bold mb-2">PROMOÇÕES DO DIA</h2>
+        <p class="text-lg md:text-xl mb-4">Combo Família: 20 pasteizinhos + 2 litros de suco por apenas R$ 59,90</p>
+        <button class="bg-white text-[#E63946] px-6 py-2 rounded-full font-bold hover:bg-[#FCEBD5] transition" type="button" id="comboFamilia">Peça Agora</button>
+      </div>
+    </section>
+
+    <!-- Categories -->
+    <section class="mb-12">
+      <h2 class="title-font text-2xl font-bold mb-6 text-center">Nossas Delícias</h2>
+      <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+        <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition" href="#">
+          <div class="bg-[#F4A261] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+            <i class="fas fa-bread-slice text-white text-2xl"></i>
+          </div>
+          <h3 class="font-semibold">Assados</h3>
+        </a>
+        <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition" href="#">
+          <div class="bg-[#E63946] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+            <i class="fas fa-drumstick-bite text-white text-2xl"></i>
+          </div>
+          <h3 class="font-semibold">Fritos</h3>
+        </a>
+        <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition" href="#">
+          <div class="bg-[#5C4033] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+            <i class="fas fa-box-open text-white text-2xl"></i>
+          </div>
+          <h3 class="font-semibold">Combos</h3>
+        </a>
+        <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition" href="#">
+          <div class="bg-[#3C6E47] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+            <i class="fas fa-glass-whiskey text-white text-2xl"></i>
+          </div>
+          <h3 class="font-semibold">Bebidas</h3>
+        </a>
+      </div>
+    </section>
+
+    <!-- Products -->
+    <section>
+      <h2 class="title-font text-2xl font-bold mb-6">Mais Pedidos</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- Product 1 -->
+        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+          <div class="h-100">
+            <img src="IMG/coxinha1.png" alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-xl mb-2">Coxinha de Frango (6 unid.)</h3>
+            <p class="text-gray-600 mb-4">Crocante por fora, macia por dentro com recheio de frango desfiado.</p>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg">R$ 18,90</span>
+              <div class="flex items-center">
+                <button class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
+                <span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
+                <button class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
+              </div>
+            </div>
+            <button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 2 -->
+        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+          <div class="h-100">
+            <img src="IMG/Bolinho_queijo.png" alt="Mini bolinhos de carne suculentos" class="w-full h-100 object-cover rounded-t-xl" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-xl mb-2">Bolinho de Carne (10 unid.)</h3>
+            <p class="text-gray-600 mb-4">Massa crocante com recheio de carne moída temperada.</p>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg">R$ 22,90</span>
+              <div class="flex items-center">
+                <button class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
+                <span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
+                <button class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
+              </div>
+            </div>
+            <button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 3 -->
+        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+          <div class="h-100">
+            <img src="IMG/Refri.png" alt="Refrigerantes" class="w-full h-100 object-cover rounded-t-xl" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-xl mb-2">Refrigerante 350ml</h3>
+            <p class="text-gray-600 mb-4">Escolha o sabor do seu refrigerante favorito:</p>
+            <div class="mb-4">
+              <label class="block text-sm font-medium mb-1" for="refri-sabor">Sabor:</label>
+              <select class="w-full p-2 border rounded" id="refri-sabor">
+                <option>Coca Cola</option>
+                <option>Coca-cola Zero</option>
+                <option>Fanta Laranja</option>
+                <option>Fanta Uva</option>
+                <option>Guaraná Antartica</option>
+              </select>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg">R$ 6,50</span>
+              <div class="flex items-center">
+                <button class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
+                <span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
+                <button class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
+              </div>
+            </div>
+            <button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 4 -->
+        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+          <div class="h-100">
+            <img src="IMG/coxinha1.png" alt="Suco natural" class="w-full h-100 object-cover rounded-t-xl" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-xl mb-2">Suco Natural (500ml)</h3>
+            <p class="text-gray-600 mb-4">Suco natural feito na hora. Sabores: laranja, abacaxi ou maracujá.</p>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg">R$ 8,50</span>
+              <div class="flex items-center">
+                <button class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
+                <span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
+                <button class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
+              </div>
+            </div>
+            <button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+
+        <!-- Product 5 (Combo) -->
+        <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+          <div class="h-100">
+            <img src="IMG/Combo.png" alt="Combo Variado" class="w-full h-100 object-cover rounded-t-xl" />
+          </div>
+          <div class="p-4">
+            <h3 class="font-bold text-xl mb-2">Combo Variado</h3>
+            <p class="text-gray-600 mb-4">Escolha 15 salgados: coxinha, bolinho de carne e bolinho de queijo.</p>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Coxinha:</label>
+              <input class="combo-input w-full p-2 border rounded" placeholder="Quantidade" type="number" min="0" max="15" value="5" />
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Bolinho de Carne:</label>
+              <input class="combo-input w-full p-2 border rounded" placeholder="Quantidade" type="number" min="0" max="15" value="5" />
+            </div>
+            <div class="mb-3">
+              <label class="block text-sm font-medium mb-1">Bolinho de Queijo:</label>
+              <input class="combo-input w-full p-2 border rounded" placeholder="Quantidade" type="number" min="0" max="15" value="5" />
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="font-bold text-lg">R$ 45,90</span>
+            </div>
+            <button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+              Adicionar ao Carrinho
+            </button>
+          </div>
+        </div>
+
+      </div>
+    </section>
+  </main>
+
+  <!-- Shopping Cart Sidebar -->
+  <div id="cart-sidebar" class="fixed top-0 right-0 w-full md:w-96 h-full bg-white shadow-2xl z-50 transition-transform duration-300 ease-in-out cart-closed overflow-y-auto">
+    <div class="p-6">
+      <div class="flex justify-between items-center mb-6">
+        <h2 class="title-font text-2xl font-bold">Seu Carrinho</h2>
+        <button class="text-gray-500 hover:text-gray-700" id="close-cart" title="close-carrinhomenu">
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+      </div>
+      <div id="cart-items" class="mb-6">
+        <div class="text-center py-10">
+          <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-3"></i>
+          <p class="text-gray-500">Seu carrinho está vazio</p>
+        </div>
+      </div>
+      <div class="border-t pt-4">
+        <div class="flex justify-between mb-2">
+          <span>Subtotal:</span>
+          <span id="subtotal">R$ 0,00</span>
+        </div>
+        <div class="flex justify-between mb-2">
+          <span>Taxa de Entrega:</span>
+          <span id="delivery-fee">R$ 5,00</span>
+        </div>
+        <div class="flex justify-between font-bold text-lg">
+          <span>Total:</span>
+          <span id="total">R$ 5,00</span>
+        </div>
+
+        <button id="clear-cart-btn" class="w-full bg-red-500 text-white py-3 rounded-full font-bold mt-2 hover:bg-red-600 transition">Limpar Carrinho</button>
+        <button id="checkout-btn" class="w-full bg-[#3C6E47] text-white py-3 rounded-full font-bold mt-4 hover:bg-[#2d5536] transition">Finalizar Pedido</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Checkout Modal -->
+  <div id="checkout-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+      <div class="flex justify-between items-center mb-4">
+        <h2 class="title-font text-2xl font-bold">Finalizar Pedido</h2>
+        <button class="text-gray-500 hover:text-gray-700" id="close-checkout" title="close-fp">
+          <i class="fas fa-times text-2xl"></i>
+        </button>
+      </div>
+      <form id="checkout-form">
+        <div class="mb-4">
+          <label class="block mb-1 font-medium" for="name">Nome Completo</label>
+          <input id="name" type="text" class="w-full p-2 border rounded" required />
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1 font-medium" for="phone">Telefone</label>
+          <input id="phone" type="tel" class="w-full p-2 border rounded" required />
+        </div>
+        <div class="mb-4">
+          <label class="block mb-1 font-medium" for="address">Endereço</label>
+          <textarea id="address" rows="3" class="w-full p-2 border rounded" required></textarea>
+        </div>
+        <div class="mb-6">
+          <label class="block mb-2 font-medium">Método de Pagamento</label>
+          <div class="space-y-2">
+            <label class="flex items-center"><input type="radio" name="payment" value="Dinheiro" class="mr-2" checked /><span>Dinheiro</span></label>
+            <label class="flex items-center"><input type="radio" name="payment" value="PIX" class="mr-2" /><span>PIX</span></label>
+            <label class="flex items-center"><input type="radio" name="payment" value="Cartão" class="mr-2" /><span>Cartão</span></label>
+          </div>
+        </div>
+        <button type="submit" class="w-full bg-[#3C6E47] text-white py-3 rounded-full font-bold hover:bg-[#2d5536] transition">Confirmar Pedido</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- Order Confirmation Modal -->
+  <div id="confirmation-modal" class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center hidden">
+    <div class="bg-white rounded-xl p-6 w-full max-w-md mx-4">
+      <div class="text-center">
+        <div class="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
+          <i class="fas fa-check text-green-500 text-2xl"></i>
+        </div>
+        <h2 class="title-font text-2xl font-bold mb-2">Pedido Confirmado!</h2>
+        <p class="mb-4">Obrigado por seu pedido na Vovó Lulu!</p>
+        <div id="order-details" class="text-left mb-6 p-4 bg-gray-50 rounded"></div>
+        <p class="mb-4">Seu pedido será preparado com carinho e entregue em breve.</p>
+        <a id="whatsapp-btn" href="https://wa.me/5511953717180" target="_blank" rel="noopener" class="inline-block bg-green-500 text-white px-6 py-2 rounded-full font-bold hover:bg-green-600 transition mb-3">
+          <i class="fab fa-whatsapp mr-2"></i> Enviar via WhatsApp
+        </a>
+        <button id="close-confirmation" class="block w-full text-[#5C4033] font-medium mt-4">Fechar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Floating Buttons -->
+  <div class="fixed z-50 right-6 flex flex-col items-end space-y-3" style="bottom: 90px;">
+    <a href="https://wa.me/5511953717180" target="_blank" rel="noopener" class="floating-btn w-14 h-14 bg-green-500 text-white rounded-full flex items-center justify-center text-2xl hover:bg-green-600 transition" style="position: fixed; bottom: 90px; right: 24px;">
+      <i class="fab fa-whatsapp"></i>
+    </a>
+    <a href="https://www.ifood.com.br/delivery/sao-paulo-sp/mini-pasteizinhos-da-vovo-lulu-jardim-seckler/d34fe3e6-c0b7-4375-b863-b5e6a7360779" target="_blank" rel="noopener" class="floating-btn w-14 h-14 bg-[#E63946] text-white rounded-full flex items-center justify-center text-2xl hover:bg-red-600 transition" style="position: fixed; bottom: 150px; right: 24px;">
+      <img src="./IMG/ifoodicon.webp" title="ifoodicon"/>
+    </a>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden"></div>
+
+  <!-- Barra inferior mobile -->
+  <div class="fixed bottom-0 left-0 w-full bg-[#5C4033] text-[#FCEBD5] flex justify-around items-center py-2 shadow-inner md:hidden z-50">
+    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-home text-lg"></i>Início</a>
+    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-bread-slice text-lg"></i>Assados</a>
+    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-drumstick-bite text-lg"></i>Fritos</a>
+    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-glass-whiskey text-lg"></i>Bebidas</a>
+    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-box-open text-lg"></i>Combos</a>
+
+    <!-- Carrinho mobile com badge -->
+    <a id="mobile-cart-btn" href="#" class="flex flex-col items-center text-xs hover:text-[#F4A261] cart-btn">
+      <span class="relative inline-block">
+        <i class="fas fa-shopping-cart text-lg"></i>
+        <span class="absolute -top-2 -right-3 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cart-count">0</span>
+      </span>
+      Carrinho
+    </a>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // Toggle menu mobile simples
+    document.addEventListener('DOMContentLoaded', () => {
+      const menuBtn = document.getElementById('menu-btn');
+      const mobileMenu = document.getElementById('mobile-menu');
+      if (menuBtn && mobileMenu) {
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('hidden'));
+      }
+    });
+  </script>
+
+  <!-- Lógica compartilhada do carrinho -->
+  <script src="cart.js"></script>
+
+  <!-- Script da página para adicionar produtos (usa a API Cart.*) -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Botões de quantidade +/-
+      document.querySelectorAll('.quantity-btn').forEach(btn => {
+        btn.addEventListener('click', function () {
+          const quantityEl = this.parentElement.querySelector('.quantity');
+          let q = parseInt(quantityEl.textContent);
+          if (this.classList.contains('minus') && q > 1) q--;
+          if (this.classList.contains('plus')) q++;
+          quantityEl.textContent = q;
+        });
+      });
+
+      // Adicionar ao carrinho (itens normais e combos)
+      document.querySelectorAll('.add-to-cart').forEach(button => {
+        button.addEventListener('click', function () {
+          const card = this.closest('.product-card');
+          let name = card.querySelector('h3')?.textContent?.trim() || 'Produto';
+          const price = parseFloat(card.querySelector('span.font-bold')?.textContent.replace('R$','').replace('.','').replace(',','.') || '0');
+
+          // Combo?
+          const comboInputs = card.querySelectorAll('.combo-input');
+          if (comboInputs && comboInputs.length) {
+            const parts = [];
+            comboInputs.forEach(input => {
+              const label = input.previousElementSibling.textContent.replace(':','').trim();
+              const val = parseInt(input.value) || 0;
+              if (val > 0) parts.push(`${val} ${label}`);
+            });
+            if (parts.length === 0) { alert('Selecione ao menos um item no combo.'); return; }
+            name = `Combo Variado (${parts.join(', ')})`;
+            Cart.addItem({ name, price, quantity: 1 });
+            return;
+          }
+
+          // Produto normal com quantity visível
+          const qty = parseInt(card.querySelector('.quantity')?.textContent || '1');
+          Cart.addItem({ name, price, quantity: qty });
+        });
+      });
+
+      // Botão de promoção "Combo Família"
+      const comboFamilia = document.getElementById('comboFamilia');
+      if (comboFamilia) {
+        comboFamilia.addEventListener('click', () => {
+          Cart.addItem({ name: 'Combo Família', price: 59.90, quantity: 1 });
+        });
+      }
+    });
+  </script>
+</body>
+</html>
