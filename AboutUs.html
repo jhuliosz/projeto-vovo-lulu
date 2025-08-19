@@ -44,17 +44,17 @@
     </div>
 
     <!-- Header DESKTOP -->
-    <div class="hidden md:flex justify-between items-center max-w-7xl mx-auto">
+    <div class="hidden md:flex justify-between items-center max-w-7xl mx-auto relative">
       <!-- Logo à esquerda -->
       <div class="flex items-center space-x-4">
         <img src="IMG/Logo2.png" alt="Logo" class="h-24 md:h-32">
       </div>
 
       <!-- Menu central -->
-      <nav class="flex space-x-8 text-lg font-medium">
-        <a href="index.html" class="hover:text-[#E63946] transition">Início</a>
-        <a href="AboutUs.html" class="hover:text-[#E63946] transition">Sobre Nós</a>
-      </nav>
+      <nav class="absolute inset-y-0 left-1/2 -translate-x-1/2 flex items-center space-x-8 text-lg font-medium">
+                <a href="index.html" class="hover:text-[#E63946] transition">Início</a>
+                <a href="AboutUs.html" class="hover:text-[#E63946] transition">Sobre Nós</a>
+            </nav>
 
       <!-- Carrinho à direita -->
       <div>
@@ -228,9 +228,9 @@
   <div class="fixed bottom-0 left-0 w-full bg-[#5C4033] text-[#FCEBD5] flex justify-around items-center py-2 shadow-inner md:hidden z-50">
     <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index.html"><i class="fas fa-home text-lg"></i>Início</a>
     <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-bread-slice text-lg"></i>Assados</a>
-    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-drumstick-bite text-lg"></i>Fritos</a>
+    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index.html"><i class="fas fa-drumstick-bite text-lg"></i>Fritos</a>
     <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-glass-whiskey text-lg"></i>Bebidas</a>
-    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#"><i class="fas fa-box-open text-lg"></i>Combos</a>
+    <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index_Combos.html"><i class="fas fa-box-open text-lg"></i>Combos</a>
 
     <!-- Carrinho mobile com badge -->
     <a id="mobile-cart-btn" href="#" class="flex flex-col items-center text-xs hover:text-[#F4A261] cart-btn">

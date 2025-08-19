@@ -67,14 +67,14 @@
         </div>
 
         <!-- Header DESKTOP -->
-        <div class="hidden md:flex justify-between items-center max-w-7xl mx-auto">
+        <div class="hidden md:flex justify-between items-center max-w-7xl mx-auto relative">            
             <!-- Logo à esquerda -->
             <div class="flex items-center space-x-4">
                 <img src="IMG/Logo2.png" alt="Logo" class="h-24 md:h-32">
             </div>
 
             <!-- Menu central -->
-            <nav class="flex space-x-8 text-lg font-medium">
+            <nav class="absolute inset-y-0 left-1/2 -translate-x-1/2 flex items-center space-x-8 text-lg font-medium">
                 <a href="index.html" class="hover:text-[#E63946] transition">Início</a>
                 <a href="AboutUs.html" class="hover:text-[#E63946] transition">Sobre Nós</a>
             </nav>
@@ -128,14 +128,14 @@
                     <h3 class="font-semibold">Assados</h3>
                 </a>
                 <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition"
-                    href="#">
+                    href="index_Fritos.html">
                     <div class="bg-[#E63946] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-drumstick-bite text-white text-2xl"></i>
                     </div>
                     <h3 class="font-semibold">Fritos</h3>
                 </a>
                 <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition"
-                    href="#">
+                    href="index_Combos.html">
                     <div class="bg-[#5C4033] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
                         <i class="fas fa-box-open text-white text-2xl"></i>
                     </div>
@@ -220,11 +220,7 @@
                         <div class="flex justify-between items-center">
                             <span class="font-bold text-lg">R$ 6,50</span>
                             <div class="flex items-center">
-                                <button
-                                    class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
-                                <span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
-                                <button
-                                    class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
+                                
                             </div>
                         </div>
                         
@@ -712,7 +708,7 @@
 
     <div
         class="fixed bottom-0 left-0 w-full bg-[#5C4033] text-[#FCEBD5] flex justify-around items-center py-2 shadow-inner md:hidden z-50">
-        <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#">
+        <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index.html">
             <i class="fas fa-home text-lg"></i>
             Início
         </a>
@@ -720,7 +716,7 @@
             <i class="fas fa-bread-slice text-lg"></i>
             Assados
         </a>
-        <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#">
+        <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index_Fritos.html">
             <i class="fas fa-drumstick-bite text-lg"></i>
             Fritos
         </a>
@@ -728,7 +724,7 @@
             <i class="fas fa-glass-whiskey text-lg"></i>
             Bebidas
         </a>
-        <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#">
+        <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index_Combos.html">
             <i class="fas fa-box-open text-lg"></i>
             Combos
         </a>
