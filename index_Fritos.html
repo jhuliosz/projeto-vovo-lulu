@@ -238,6 +238,25 @@
                     </div>
                 </div>
 
+                <!-- 20 minipasteizinhos salgados -->
+
+                 <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition">
+                    <div class="h-100">
+                        <img src="IMG/coxinha1.png" alt="MRefrigerantes" class="w-full h-100 object-cover rounded-t-xl" />
+                    </div>
+                    <div class="p-4">
+                        <h3 class="font-bold text-xl mb-2"> 20 pasteizinhos salgados</h3>
+                        <p class="text-gray-600 mb-2">Monte seu combo em múltiplos de 5 (total: 20).</p>
+                        <div class="flex justify-between items-center">
+                            <span class="font-bold text-lg">R$ 29,99</span>
+                        </div>
+                        <button
+                            class="choose-combo20 mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition" type="button">
+                            Escolher Sabores
+                        </button>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -1263,6 +1282,147 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 </script>
 
+<!-- Modal: Combo 20 pasteizinhos salgados -->
+ <div id="combo20-modal" class="fixed inset-0 z-[60] hidden">
+  <div class="absolute inset-0 bg-black bg-opacity-50"></div>
+  <div class="relative z-[61] flex items-start justify-center min-h-screen p-4">
+    <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 relative">
+      <button id="close-combo20-modal" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" aria-label="Fechar">
+        <i class="fas fa-times text-2xl"></i>
+      </button>
+      <h2 class="title-font text-2xl font-bold mb-1">Monte seu Combo (20 unidades)</h2>
+      <p class="text-sm text-gray-600 mb-4">Adicione de 5 em 5 por sabor. <span id="combo20-counter" class="font-semibold">Selecionados: 0/40</span></p>
+
+      <form id="combo20-form" class="space-y-3">
+        <div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+          <span>5 Queijos com palmito</span>
+          <div class="flex items-center">
+            <button type="button" class="combo20-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="5 Queijos com palmito">-</button>
+            <span class="combo20-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="5 Queijos com palmito">0</span>
+            <button type="button" class="combo20-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="5 Queijos com palmito">+</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+          <span>Calabresa</span>
+          <div class="flex items-center">
+            <button type="button" class="combo20-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Calabresa">-</button>
+            <span class="combo20-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Calabresa">0</span>
+            <button type="button" class="combo20-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Calabresa">+</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+          <span>Carne</span>
+          <div class="flex items-center">
+            <button type="button" class="combo20-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Carne">-</button>
+            <span class="combo20-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Carne">0</span>
+            <button type="button" class="combo20-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Carne">+</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+          <span>Frango</span>
+          <div class="flex items-center">
+            <button type="button" class="combo20-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Frango">-</button>
+            <span class="combo20-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Frango">0</span>
+            <button type="button" class="combo20-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Frango">+</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+          <span>Pizza</span>
+          <div class="flex items-center">
+            <button type="button" class="combo20-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Pizza">-</button>
+            <span class="combo20-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Pizza">0</span>
+            <button type="button" class="combo20-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Pizza">+</button>
+          </div>
+        </div>
+
+        <div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+          <span>Queijo</span>
+          <div class="flex items-center">
+            <button type="button" class="combo20-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Queijo">-</button>
+            <span class="combo20-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Queijo">0</span>
+            <button type="button" class="combo20-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Queijo">+</button>
+          </div>
+        </div>
+
+          <button id="combo20-add" type="submit" disabled class="mt-4 w-full bg-[#3C6E47] opacity-50 cursor-not-allowed text-white py-3 rounded-full font-semibold transition">
+          Adicionar ao Carrinho
+        </button>
+      </form>
+    </div>
+  </div>
+</div>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('combo20-modal');
+  const form = document.getElementById('combo20-form');
+  const addBtn = document.getElementById('combo20-add');
+  const closeBtn = document.getElementById('close-combo20-modal');
+  const counterEl = document.getElementById('combo20-counter');
+  const MAX = 20;
+  const STEP = 5;
+  const price = 29.99;
+
+  document.querySelectorAll('.product-card .choose-combo20').forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      form.querySelectorAll('.combo20-qty').forEach(el => el.textContent = '0');
+      updateState();
+    });
+  });
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    form.querySelectorAll('.combo20-qty').forEach(el => el.textContent = '0');
+    updateState();
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => { if (e.target === modal.firstElementChild) closeModal(); });
+
+  form.addEventListener('click', (e) => {
+    const minus = e.target.closest('.combo20-minus');
+    const plus  = e.target.closest('.combo20-plus');
+    if (!minus && !plus) return;
+    const flavor = (minus || plus).getAttribute('data-flavor');
+    const qtyEl = form.querySelector('.combo20-qty[data-flavor="' + CSS.escape(flavor) + '"]');
+    let q = parseInt(qtyEl.textContent) || 0;
+    const currentTotal = getTotal();
+    if (minus) { q = Math.max(0, q - STEP); }
+    else if (plus) { if (currentTotal + STEP > MAX) return; q = q + STEP; }
+    qtyEl.textContent = String(q);
+    updateState();
+  });
+
+  function getTotal() {
+    return Array.from(form.querySelectorAll('.combo20-qty')).map(function(el){ return parseInt(el.textContent) || 0; }).reduce(function(a,b){ return a+b; }, 0);
+  }
+  function updateState() {
+    const sum = getTotal();
+    addBtn.disabled = (sum !== MAX);
+    addBtn.classList.toggle('opacity-50', sum !== MAX);
+    addBtn.classList.toggle('cursor-not-allowed', sum !== MAX);
+    if (counterEl) counterEl.textContent = 'Selecionados: ' + sum + '/' + MAX;
+  }
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const total = getTotal();
+    if (total !== MAX) return;
+    const items = Array.from(form.querySelectorAll('.combo20-qty'))
+      .map(function(el){ return { flavor: el.getAttribute('data-flavor'), qty: parseInt(el.textContent) || 0 }; })
+      .filter(function(it){ return it.qty > 0; });
+    const breakdown = items.map(function(it){ return it.qty + ' ' + it.flavor; }).join(', ');
+    const name = '20 pasteizinhos salgados (' + breakdown + ')';
+    if (window.Cart && typeof Cart.addItem === 'function') { Cart.addItem({ name: name, price: price, quantity: 1 }); }
+    closeModal();
+  });
+});
+</script>
 
 <!-- Modal: Combo 40 Salgados 10g -->
 <div id="combo40-modal" class="fixed inset-0 z-[60] hidden">
