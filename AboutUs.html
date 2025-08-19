@@ -13,6 +13,12 @@
     .cart-open { transform: translateX(0); }
     .cart-closed { transform: translateX(100%); }
     .floating-btn { box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); }
+    /* Quando o carrinho estiver aberto, os botões flutuantes ficam atrás dele */
+#cart-sidebar.cart-open ~ div.fixed.right-6 {
+  z-index: 40 !important;     /* abaixo do carrinho (z-50) */
+  pointer-events: none;        /* evita clique acidental nos botões por baixo */
+}
+
   </style>
 </head>
 <body class="text-[#5C4033]">
@@ -118,7 +124,7 @@
 
   <!-- Shopping Cart Sidebar -->
   <div id="cart-sidebar" class="fixed top-0 right-0 w-full md:w-96 h-full bg-white shadow-2xl z-50 transition-transform duration-300 ease-in-out cart-closed overflow-y-auto">
-    <div class="p-6">
+    <div class="p-6 pb-28 md:pb-6">
       <div class="flex justify-between items-center mb-6">
         <h2 class="title-font text-2xl font-bold">Seu Carrinho</h2>
         <button class="text-gray-500 hover:text-gray-700" id="close-cart" title="close-carrinhomenu">
