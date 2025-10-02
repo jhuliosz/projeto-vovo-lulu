@@ -2,12 +2,10 @@ const express = require("express");
 const cors = require("cors");
 const admin = require("firebase-admin");
 
-const serviceAccount = require("../sitevovolulu-firebase-adminsdk.json");
+const serviceAccount = require("../sitevovolulu-firebase-adminsdk-fbsvc-74a136ab2d.json");
 const routes = require("./routes");
 
-admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount)
-});
+admin.initializeApp({ credential: admin.credential.cert(serviceAccount)});
 
 const db = admin.firestore();
 
