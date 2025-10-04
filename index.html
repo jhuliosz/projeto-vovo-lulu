@@ -52,7 +52,7 @@
 </div>
 <!-- Carrinho à direita -->
 <button class="relative cart-btn">
-<img src="IMG/CarrinhoDesktop.png" alt="Carrinho" class="w-9 h-9 object-contain" loading="lazy">
+<img alt="Carrinho" class="w-9 h-9 object-contain" loading="lazy" src="IMG/CarrinhoDesktop.png"/>
 <span class="absolute -top-2 -right-2 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" id="cart-count">0</span>
 </button>
 </div>
@@ -70,7 +70,7 @@
 <!-- Carrinho à direita -->
 <div>
 <button class="relative cart-btn">
-<img src="IMG/CarrinhoDesktop.png" alt="Carrinho" class="w-20 h-20 object-contain" loading="lazy">
+<img alt="Carrinho" class="w-20 h-20 object-contain" loading="lazy" src="IMG/CarrinhoDesktop.png"/>
 <span class="absolute -top-2 -right-2 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs" id="cart-count">0</span>
 </button>
 </div>
@@ -99,32 +99,32 @@
 </div>
 </section>
 <!-- Categories -->
-<section class="mb-12">
+<section class="mb-12 hidden md:block">
 <h2 class="title-font text-2xl font-bold mb-6 text-center">Nossas Delícias</h2>
 <div class="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-5 2xl:grid-cols-5"><a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition w-full shrink-0" data-filter="todos" href="#todos"><div class="bg-[#5C4033] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-<img src="IMG/Todos.png" alt="Todos" class="w-12 h-12 object-contain pointer-events-none" loading="lazy" draggable="false"></div>
+<img alt="Todos" class="w-12 h-12 object-contain pointer-events-none" draggable="false" loading="lazy" src="IMG/Todos.png"/></div>
 <h3 class="font-semibold">Todos</h3></a>
 <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition w-full shrink-0" data-filter="assados" href="#assados">
 <div class="bg-[#5C4033] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-<img src="IMG/Assados.png" alt="Assados" class="w-12 h-12 object-contain pointer-events-none" loading="lazy" draggable="false">
+<img alt="Assados" class="w-12 h-12 object-contain pointer-events-none" draggable="false" loading="lazy" src="IMG/Assados.png"/>
 </div>
 <h3 class="font-semibold">Assados</h3>
 </a>
 <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition w-full shrink-0" data-filter="fritos" href="#fritos">
 <div class="bg-[#5C4033] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-<img src="IMG/Fritos.png" alt="Fritos" class="w-12 h-12 object-contain pointer-events-none" loading="lazy" draggable="false">
+<img alt="Fritos" class="w-12 h-12 object-contain pointer-events-none" draggable="false" loading="lazy" src="IMG/Fritos.png"/>
 </div>
 <h3 class="font-semibold">Fritos</h3>
 </a>
 <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition w-full shrink-0" data-filter="combos" href="#combos">
 <div class="bg-[#5C4033] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-<img src="IMG/Combos.png" alt="Combos" class="w-12 h-12 object-contain pointer-events-none" loading="lazy" draggable="false">
+<img alt="Combos" class="w-12 h-12 object-contain pointer-events-none" draggable="false" loading="lazy" src="IMG/Combos.png"/>
 </div>
 <h3 class="font-semibold">Combos</h3>
 </a>
 <a class="category-card bg-white rounded-xl p-4 text-center shadow-md hover:shadow-lg transition w-full shrink-0" data-filter="bebidas" href="#bebidas">
 <div class="bg-[#5C4033] rounded-full w-16 h-16 mx-auto mb-3 flex items-center justify-center">
-<img src="IMG/Bebidas.png" alt="Bebidas" class="w-12 h-12 object-contain pointer-events-none" loading="lazy" draggable="false">
+<img alt="Bebidas" class="w-12 h-12 object-contain pointer-events-none" draggable="false" loading="lazy" src="IMG/Bebidas.png"/>
 </div>
 <h3 class="font-semibold">Bebidas</h3>
 </a>
@@ -132,13 +132,12 @@
 </section>
 <!-- Products -->
 <section>
-<h2 class="title-font text-2xl font-bold mb-6">Mais Pedidos</h2>
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<section class="mb-12" data-section="destaques"><h2 class="title-font text-2xl font-bold mb-6">Os salgados mais pedidos da vovó Lulu</h2><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2">
 <!-- Product 1 -->
 <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="fritos">
 <div class="h-100">
-<img alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/coxinha1.png">
-</img></div>
+<img alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/coxinha1.png"/>
+</div>
 <div class="p-4">
 <h3 class="font-bold text-xl mb-2">Coxinha de Frango (6 unid.)</h3>
 <p class="text-gray-600 mb-4">Crocante por fora, macia por dentro com recheio de frango
@@ -159,8 +158,8 @@
 <!-- Product 2 -->
 <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="fritos">
 <div class="h-100">
-<img alt="Mini boloinhos de queijo suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Bolinho_queijo.png">
-</img></div>
+<img alt="Mini boloinhos de queijo suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Bolinho_queijo.png"/>
+</div>
 <div class="p-4">
 <h3 class="font-bold text-xl mb-2">Bolinho de Carne (10 unid.)</h3>
 <p class="text-gray-600 mb-4">Massa crocante com recheio de carne moída temperada.</p>
@@ -218,35 +217,99 @@
 </div>
 </div>
 <!-- Product 5 -->
-<div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="combos">
+
+</div></section><section class="mb-12" data-section="assados"><h2 class="title-font text-2xl font-bold mb-6">Salgados assados da Vovó Lulu</h2><div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div></section><section class="mb-12" data-section="fritos"><h2 class="title-font text-2xl font-bold mb-6">Salgados fritos da vovó Lulu</h2><div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 grid-cols-1"><div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="fritos">
 <div class="h-100">
-<img alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Combo.png"/>
+<img alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/coxinha1.png"/>
 </div>
 <div class="p-4">
-<h3 class="font-bold text-xl mb-2">Combo Variado</h3>
-<p class="text-gray-600 mb-4">Escolha 15 salgados: coxinha, bolinho de carne e bolinho de
-                            queijo.</p>
-<div class="mb-3">
-<label class="block text-sm font-medium mb-1">Coxinha:</label>
-<input class="combo-input w-full p-2 border rounded" max="15" min="0" placeholder="Quantidade" type="number" value="5"/>
-</div>
-<div class="mb-3">
-<label class="block text-sm font-medium mb-1">Bolinho de Carne:</label>
-<input class="combo-input w-full p-2 border rounded" max="15" min="0" placeholder="Quantidade" type="number" value="5"/>
-</div>
-<div class="mb-3">
-<label class="block text-sm font-medium mb-1">Bolinho de Queijo:</label>
-<input class="combo-input w-full p-2 border rounded" max="15" min="0" placeholder="Quantidade" type="number" value="5"/>
-</div>
+<h3 class="font-bold text-xl mb-2">Coxinha de Frango (6 unid.)</h3>
+<p class="text-gray-600 mb-4">Crocante por fora, macia por dentro com recheio de frango
+                            desfiado.</p>
 <div class="flex justify-between items-center">
-<span class="font-bold text-lg">R$ 45,90</span>
+<span class="font-bold text-lg">R$ 18,90</span>
+<div class="flex items-center">
+<button class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
+<span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
+<button class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
+</div>
 </div>
 <button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
                             Adicionar ao Carrinho
                         </button>
 </div>
+</div><div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="fritos">
+<div class="h-100">
+<img alt="Mini boloinhos de queijo suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Bolinho_queijo.png"/>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-xl mb-2">Bolinho de Carne (10 unid.)</h3>
+<p class="text-gray-600 mb-4">Massa crocante com recheio de carne moída temperada.</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">R$ 22,90</span>
+<div class="flex items-center">
+<button class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
+<span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
+<button class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
 </div>
 </div>
+<button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+                            Adicionar ao Carrinho
+                        </button>
+</div>
+</div></div></section><section class="mb-12" data-section="combos"><h2 class="title-font text-2xl font-bold mb-6">Combos de salgados da Vovó Lulu</h2><div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 grid-cols-1">
+<div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="combos">
+<div class="h-100">
+<img alt="Combo 40 Salgados 10g" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Combo1.png"/>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-xl mb-2">Combo 40 salgados 10g</h3>
+<p class="text-gray-600 mb-2">Monte seu combo em múltiplos de 5 (total: 40).</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">R$ 35,90</span>
+</div>
+<button class="choose-combo40 mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition" type="button">
+      Escolher Sabores
+    </button>
+</div>
+</div>
+</div></section><section class="mb-12" data-section="bebidas"><h2 class="title-font text-2xl font-bold mb-6">Bebidas da vovó Lulu</h2><div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 grid-cols-1"><div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="bebidas">
+<div class="h-100">
+<img alt="MRefrigerantes" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Refri.png"/>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-xl mb-2">Refrigerante 350ml</h3>
+<p class="text-gray-600 mb-4">Escolha o sabor do seu refrigerante favorito:</p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">R$ 6,50</span>
+<div class="flex items-center">
+</div>
+</div>
+<button class="choose-flavor mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition" type="button">
+                            Escolher Sabor
+                        </button>
+</div>
+</div><div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="bebidas">
+<div class="h-100">
+<img alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/coxinha1.png"/>
+</div>
+<div class="p-4">
+<h3 class="font-bold text-xl mb-2">Suco Natural (500ml)</h3>
+<p class="text-gray-600 mb-4">Suco natural feito na hora. Sabores: laranja, abacaxi ou maracujá.
+                        </p>
+<div class="flex justify-between items-center">
+<span class="font-bold text-lg">R$ 8,50</span>
+<div class="flex items-center">
+<button class="quantity-btn minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full">-</button>
+<span class="quantity bg-[#FCEBD5] w-10 h-8 flex items-center justify-center">1</span>
+<button class="quantity-btn plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full">+</button>
+</div>
+</div>
+<button class="add-to-cart mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition">
+                            Adicionar ao Carrinho
+                        </button>
+</div>
+</div></div></section>
 </section>
 </main>
 <!-- Shopping Cart Sidebar -->
@@ -261,7 +324,7 @@
 <div class="mb-6" id="cart-items">
 <!-- Cart items will be added here dynamically -->
 <div class="text-center py-10">
-<img src="IMG/CarrinhoDesktop.png" alt="Carrinho" class="w-20 h-20 object-contain" loading="lazy">
+<img alt="Carrinho" class="w-20 h-20 object-contain" loading="lazy" src="IMG/CarrinhoDesktop.png"/>
 <p class="text-gray-500">Seu carrinho está vazio</p>
 </div>
 </div>
@@ -640,29 +703,29 @@
         });
     </script>
 <div class="fixed bottom-0 left-0 w-full bg-[#5C4033] text-[#FCEBD5] flex justify-around items-center py-2 shadow-inner md:hidden z-50">
-<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index.html">
-<img src="IMG/Inicio.png" alt="Inicio" class="w-7 h-7 object-contain" loading="lazy">
+<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#todos">
+<img alt="Inicio" class="w-7 h-7 object-contain" loading="lazy" src="IMG/Inicio.png"/>
             Início
         </a>
-<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#">
-<img src="IMG/Assados.png" alt="Assados" class="w-7 h-7 object-contain" loading="lazy">
+<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#assados">
+<img alt="Assados" class="w-7 h-7 object-contain" loading="lazy" src="IMG/Assados.png"/>
             Assados
         </a>
-<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index_Fritos.html">
-<img src="IMG/Fritos.png" alt="Fritos" class="w-7 h-7 object-contain" loading="lazy">
+<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#fritos">
+<img alt="Fritos" class="w-7 h-7 object-contain" loading="lazy" src="IMG/Fritos.png"/>
             Fritos
         </a>
-<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#">
-<img src="IMG/Bebidas.png" alt="Bebidas" class="w-7 h-7 object-contain" loading="lazy">
+<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#bebidas">
+<img alt="Bebidas" class="w-7 h-7 object-contain" loading="lazy" src="IMG/Bebidas.png"/>
             Bebidas
         </a>
-<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="index_Combos.html">
-<img src="IMG/Combos.png" alt="Combos" class="w-7 h-7 object-contain" loading="lazy">
+<a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#combos">
+<img alt="Combos" class="w-7 h-7 object-contain" loading="lazy" src="IMG/Combos.png"/>
             Combos
         </a>
 <a class="flex flex-col items-center text-xs hover:text-[#F4A261] cart-btn" href="#" id="mobile-cart-btn">
 <span class="relative inline-block">
-<img src="IMG/Carrinho.png" alt="Carrinho" class="w-7 h-7 object-contain" loading="lazy">
+<img alt="Carrinho" class="w-7 h-7 object-contain" loading="lazy" src="IMG/Carrinho.png"/>
 <span class="absolute -top-2 -right-3 bg-[#E63946] text-white rounded-full w-5 h-5 flex items-center justify-center text-xs cart-count">0</span>
 </span>
             Carrinho
@@ -802,7 +865,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 });
 </script>
-
 <script>
 (function(){
   const cards = document.querySelectorAll('.product-card');
@@ -840,6 +902,267 @@ document.addEventListener('DOMContentLoaded', () => {
   window.addEventListener('hashchange', initFromHash);
   initFromHash();
 })();
+</script>
+<script>
+(function(){
+  const categoryLinks = document.querySelectorAll('.category-card');
+  const sections = document.querySelectorAll('section[data-section]');
+
+  const map = {
+    'todos': ['destaques','assados','fritos','combos','bebidas'],
+    'assados': ['assados'],
+    'fritos': ['fritos'],
+    'combos': ['combos'],
+    'bebidas': ['bebidas']
+  };
+
+  function showSections(keys){
+    const set = new Set(keys);
+    sections.forEach(sec => {
+      const k = sec.getAttribute('data-section');
+      sec.style.display = set.has(k) ? '' : 'none';
+    });
+  }
+
+  function highlightActive(filter){
+    const f = filter.toLowerCase();
+    const links = document.querySelectorAll('.category-card');
+    links.forEach(a => {
+      const active = (a.dataset.filter || '').toLowerCase() === f;
+      a.classList.toggle('ring-2', active);
+      a.classList.toggle('ring-[#5C4033]', active);
+    });
+  }
+
+  function applyFilter(filter){
+    const f = (filter || 'todos').toLowerCase();
+    const keys = map[f] || map['todos'];
+    showSections(keys);
+    highlightActive(f);
+    if (f === 'todos') history.replaceState(null, '', '#todos');
+    else history.replaceState(null, '', '#' + f);
+  }
+
+  // Desktop cards (category tiles)
+  document.querySelectorAll('.category-card').forEach(a => {
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      applyFilter(this.dataset.filter);
+    });
+  });
+
+  // Deep-link init (also works with mobile bar)
+  function fromHash(){
+    const allowed = ['todos','assados','fritos','combos','bebidas'];
+    const h = (location.hash || '#todos').replace('#','').toLowerCase();
+    applyFilter(allowed.includes(h) ? h : 'todos');
+  }
+  window.addEventListener('hashchange', fromHash);
+  fromHash();
+})();
+</script>
+<!-- Modal: Combo 40 Salgados 10g -->
+<div class="fixed inset-0 z-[60] hidden" id="combo40-modal">
+<div class="absolute inset-0 bg-black bg-opacity-50" data-overlay="combo40"></div>
+<div class="relative z-[61] flex items-start justify-center min-h-screen p-4">
+<div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 relative">
+<button aria-label="Fechar" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" id="close-combo40-modal">
+<i class="fas fa-times text-2xl"></i>
+</button>
+<h2 class="title-font text-2xl font-bold mb-1">Monte seu Combo (40 unidades)</h2>
+<p class="text-sm text-gray-600 mb-4">Adicione de 5 em 5 por sabor. <span class="font-semibold" id="combo40-counter">Selecionados: 0/40</span></p>
+<form class="space-y-3" id="combo40-form">
+<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+<span>Coxinha</span>
+<div class="flex items-center">
+<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Coxinha" type="button">-</button>
+<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Coxinha">0</span>
+<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Coxinha" type="button">+</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+<span>Bolinho de Queijo</span>
+<div class="flex items-center">
+<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Bolinho de Queijo" type="button">-</button>
+<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Bolinho de Queijo">0</span>
+<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Bolinho de Queijo" type="button">+</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+<span>Enroladinha de Salsicha</span>
+<div class="flex items-center">
+<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Enroladinha de Salsicha" type="button">-</button>
+<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Enroladinha de Salsicha">0</span>
+<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Enroladinha de Salsicha" type="button">+</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+<span>Risoles</span>
+<div class="flex items-center">
+<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Risoles" type="button">-</button>
+<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Risoles">0</span>
+<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Risoles" type="button">+</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+<span>Calabresa</span>
+<div class="flex items-center">
+<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Calabresa" type="button">-</button>
+<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Calabresa">0</span>
+<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Calabresa" type="button">+</button>
+</div>
+</div>
+<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
+<span>Bolinha de Carne</span>
+<div class="flex items-center">
+<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Bolinha de Carne" type="button">-</button>
+<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Bolinha de Carne">0</span>
+<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Bolinha de Carne" type="button">+</button>
+</div>
+</div>
+<button class="mt-4 w-full bg-[#3C6E47] opacity-50 cursor-not-allowed text-white py-3 rounded-full font-semibold transition" disabled="" id="combo40-add" type="submit">
+          Adicionar ao Carrinho
+        </button>
+</form>
+</div>
+</div>
+</div>
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+  const modal = document.getElementById('combo40-modal');
+  const form = document.getElementById('combo40-form');
+  const addBtn = document.getElementById('combo40-add');
+  const closeBtn = document.getElementById('close-combo40-modal');
+  const counterEl = document.getElementById('combo40-counter');
+  const MAX = 40;
+  const STEP = 5;
+  const price = 35.90;
+
+  // Open modal buttons
+  document.querySelectorAll('.product-card .choose-combo40').forEach(btn => {
+    btn.addEventListener('click', () => {
+      modal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      // reset quantities
+      form.querySelectorAll('.combo40-qty').forEach(el => el.textContent = '0');
+      updateState();
+    });
+  });
+
+  function closeModal() {
+    modal.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+    // reset as well
+    form.querySelectorAll('.combo40-qty').forEach(el => el.textContent = '0');
+    updateState();
+  }
+
+  if (closeBtn) closeBtn.addEventListener('click', closeModal);
+  // Close on overlay click
+  modal.addEventListener('click', (e) => {
+    if (e.target && e.target.matches('[data-overlay="combo40"]')) closeModal();
+  });
+
+  // Plus/Minus logic
+  form.addEventListener('click', (e) => {
+    const minus = e.target.closest('.combo40-minus');
+    const plus  = e.target.closest('.combo40-plus');
+    if (!minus && !plus) return;
+    const flavor = (minus || plus).getAttribute('data-flavor');
+    const qtyEl = form.querySelector('.combo40-qty[data-flavor="' + CSS.escape(flavor) + '"]');
+    let q = parseInt(qtyEl.textContent) || 0;
+    const currentTotal = getTotal();
+    if (minus) {
+      q = Math.max(0, q - STEP);
+    } else if (plus) {
+      if (currentTotal + STEP > MAX) return;
+      q = q + STEP;
+    }
+    qtyEl.textContent = String(q);
+    updateState();
+  });
+
+  function getTotal() {
+    return Array.from(form.querySelectorAll('.combo40-qty'))
+      .map(el => parseInt(el.textContent) || 0)
+      .reduce((a, b) => a + b, 0);
+  }
+
+  function updateState() {
+    const sum = getTotal();
+    addBtn.disabled = (sum !== MAX);
+    addBtn.classList.toggle('opacity-50', sum !== MAX);
+    addBtn.classList.toggle('cursor-not-allowed', sum !== MAX);
+    if (counterEl) counterEl.textContent = 'Selecionados: ' + sum + '/' + MAX;
+  }
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const total = getTotal();
+    if (total !== MAX) return;
+
+    const items = Array.from(form.querySelectorAll('.combo40-qty'))
+      .map(el => ({ flavor: el.getAttribute('data-flavor'), qty: parseInt(el.textContent) || 0 }))
+      .filter(it => it.qty > 0);
+
+    const breakdown = items.map(it => it.qty + ' ' + it.flavor).join(', ');
+    const name = 'Combo 40 salgados 10g (' + breakdown + ')';
+
+    if (window.Cart && typeof Cart.addItem === 'function') {
+      Cart.addItem({ name: name, price: price, quantity: 1 });
+    }
+    closeModal();
+  });
+});
+</script>
+<script>
+// Fecha o carrinho quando o usuário navega pelos botões da barra mobile
+document.addEventListener('DOMContentLoaded', function(){
+  function closeCartIfOpen(){
+    if (window.Cart && typeof Cart.close === 'function') {
+      Cart.close();
+    } else {
+      // fallback: esconde overlay e sidebar, caso o objeto Cart não esteja disponível
+      var overlay = document.getElementById('overlay');
+      var sidebar = document.getElementById('cart-sidebar');
+      if (overlay) overlay.classList.add('hidden');
+      if (sidebar) {
+        sidebar.classList.remove('cart-open');
+        sidebar.classList.add('cart-closed');
+      }
+      document.body.classList.remove('overflow-hidden');
+    }
+  }
+
+  // Clique em qualquer link da barra mobile (exceto o Carrinho)
+  document.addEventListener('click', function(e){
+    var link = e.target.closest('a');
+    if (!link) return;
+
+    // Está dentro da barra inferior (md:hidden + fixed bottom-0)?
+    var bar = link.closest('div');
+    var isMobileBar = false;
+    if (bar && bar.classList) {
+      isMobileBar = bar.classList.contains('md:hidden') && bar.classList.contains('fixed') && bar.classList.contains('bottom-0');
+    }
+    if (!isMobileBar) return;
+
+    // Ignora o próprio botão do carrinho
+    if (link.id === 'mobile-cart-btn' || link.classList.contains('cart-btn')) return;
+
+    // Em mobile, fechar o carrinho antes de aplicar o filtro
+    if (window.matchMedia('(max-width: 767.98px)').matches) {
+      closeCartIfOpen();
+    }
+  }, true);
+
+  // Failsafe: ao trocar o hash (ex.: via deep-link manual), fecha no mobile
+  window.addEventListener('hashchange', function(){
+    if (window.matchMedia('(max-width: 767.98px)').matches) {
+      closeCartIfOpen();
+    }
+  });
+});
 </script>
 </body>
 </html>
