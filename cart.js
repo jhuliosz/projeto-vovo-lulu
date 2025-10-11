@@ -1,4 +1,4 @@
-//import { getAllProducts } from "./services/getData.js";
+
 // cart.js — Carrinho compartilhado entre páginas (persistência + UI)
 (function () {
   const CART_KEY = 'vovolulu_cart_v1';
@@ -112,7 +112,6 @@
           </div>`;
       } else {
         cartItemsContainer.innerHTML = '';
-        const prod = getAllProducts();
         cart.forEach((item, index) => {
           const itemTotal = item.price * item.quantity;
           subtotal += itemTotal;

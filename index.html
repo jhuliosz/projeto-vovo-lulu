@@ -132,8 +132,13 @@
 </section>
 <!-- Products -->
 <section>
-<section class="mb-12" data-section="destaques"><h2 class="title-font text-2xl font-bold mb-6">Os salgados mais pedidos da vovó Lulu</h2><div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2">
-<!-- Product 1 -->
+<section class="mb-12" data-section="destaques"><h2 class="title-font text-2xl font-bold mb-6">Os salgados mais pedidos da vovó Lulu</h2><div id="ProdDiv" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2">
+<script type="module" src="/services/getData.js"></script>
+<script type="module" src="renderProd.js">
+
+</script>
+
+  <!-- Product 1 
 <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="fritos">
 <div class="h-100">
 <img alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/coxinha1.png"/>
@@ -155,7 +160,7 @@
                         </button>
 </div>
 </div>
-<!-- Product 2 -->
+<!-- Product 2 
 <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="fritos">
 <div class="h-100">
 <img alt="Mini boloinhos de queijo suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Bolinho_queijo.png"/>
@@ -176,7 +181,7 @@
                         </button>
 </div>
 </div>
-<!-- Product 3 -->
+<!-- Product 3 
 <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="bebidas">
 <div class="h-100">
 <img alt="MRefrigerantes" class="w-full h-100 object-cover rounded-t-xl" src="IMG/Refri.png"/>
@@ -194,7 +199,7 @@
                         </button>
 </div>
 </div>
-<!-- Product 4 -->
+<!-- Product 4 
 <div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="bebidas">
 <div class="h-100">
 <img alt="Mini coxinhas de frango suculentas" class="w-full h-100 object-cover rounded-t-xl" src="IMG/coxinha1.png"/>
@@ -216,7 +221,7 @@
                         </button>
 </div>
 </div>
-<!-- Product 5 -->
+<!-- Product 5 
 
 </div></section><section class="mb-12" data-section="assados"><h2 class="title-font text-2xl font-bold mb-6">Salgados assados da Vovó Lulu</h2><div class="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6"></div></section><section class="mb-12" data-section="fritos"><h2 class="title-font text-2xl font-bold mb-6">Salgados fritos da vovó Lulu</h2><div class="grid sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 grid-cols-1"><div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" data-categoria="fritos">
 <div class="h-100">
@@ -309,7 +314,7 @@
                             Adicionar ao Carrinho
                         </button>
 </div>
-</div></div></section>
+</div>--></div></section>
 </section>
 </main>
 <!-- Shopping Cart Sidebar -->
@@ -430,8 +435,9 @@
 </div>
 <!-- Overlay -->
 <div class="fixed inset-0 bg-black bg-opacity-50 z-40 hidden" id="overlay"></div>
-<script src="cart.js"></script>
-<script>
+<script type="module" src="cart.js"></script>
+<script type="module" src="cartt.js"></script>
+<!--<script>
         // Mobile Menu Toggle
         //Cart.updateCart();
         const menuBtn = document.getElementById('menu-btn');
@@ -701,7 +707,7 @@
             // Reset form
             checkoutForm.reset();
         });
-    </script>
+    </script>-->
 <div class="fixed bottom-0 left-0 w-full bg-[#5C4033] text-[#FCEBD5] flex justify-around items-center py-2 shadow-inner md:hidden z-50">
 <a class="flex flex-col items-center text-xs hover:text-[#F4A261]" href="#todos">
 <img alt="Inicio" class="w-7 h-7 object-contain" loading="lazy" src="IMG/Inicio.png"/>
