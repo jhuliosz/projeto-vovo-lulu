@@ -8,7 +8,7 @@ export async function getAllProducts() {
   const disponiveis = await getAllDisponiveis();
 
   const produtos = await Promise.all(
-    disponiveis.map(d => getProduct(d.prod_id))
+    disponiveis.map(d => (d.tipo!="combos")?getProduct(d.prod_id):getCombos(d.prod_id))
   );
 
   console.log("Produtos carregados:", produtos);
@@ -26,10 +26,10 @@ tipo:""
 export async function getProduct(id){
     const response = await fetch(`http://localhost:4200/api/produto/${id}`);
     const produto = await response.json();
-    return produto;
+      return produto;
   }
-export async function getAllCombos(){
-    const response = await fetch("http://localhost:4200/api/combos");
+export async function getCombos(id){
+    const response = await fetch(`http://localhost:4200/api/combos/${id}`);
     const combos = await response.json();
     console.log(combos);
     return combos;
