@@ -68,7 +68,7 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
           </div>
         `).join('')}
-        <button class="mt-4 w-full bg-[#3C6E47] opacity-50 cursor-not-allowed text-white py-3 rounded-full font-semibold transition" disabled id="${comboId}-add" type="submit">
+        <button class="add-to-cart mt-4 w-full bg-[#3C6E47] opacity-50 cursor-not-allowed text-white py-3 rounded-full font-semibold transition " disabled id="${comboId}-add">
           Adicionar ao Carrinho
         </button>
       </form>
@@ -221,6 +221,50 @@ prodCards().then(() => {
       addBtn.classList.add("opacity-50", "cursor-not-allowed");
     }
   });
+    // --- ADICIONAR COMBO AO CARRINHO ---
+  document.addEventListener("click", (e) => {
+    const addComboBtn = e.target.closest(".add-to-cart");
+    if (!addComboBtn || !addComboBtn.id.endsWith("-add")) return;
+
+    e.preventDefault();
+
+    const modal = addComboBtn.closest(".fixed");
+    const form = modal.querySelector("form");
+    const comboName = modal.querySelector(".title-font").textContent;
+    const comboPrice = parseFloat(
+      document.querySelector(`button[data-target='${modal.id}']`)
+        .closest(".product-card")
+        .querySelector("span.font-bold")
+        .textContent
+        .replace("R$ ", "")
+        .replace(",", ".")
+    );
+
+    // coleta os sabores selecionados
+    const flavors = [];
+    form.querySelectorAll(".combo-qty").forEach((span) => {
+      const qty = parseInt(span.textContent);
+      if (qty > 0) {
+        const flavor = span.dataset.flavor;
+        flavors.push(`${qty}x ${flavor}`);
+      }
+    });
+
+    const comboDetails = flavors.join(", ");
+
+    const product = {
+      name: `${comboName} (${comboDetails})`,
+      price: comboPrice,
+      quantity: 1, // cada combo conta como 1 item
+    };
+
+    Cart.addItem(product);
+
+    // fechar o modal e restaurar o scroll
+    modal.classList.add("hidden");
+    document.body.classList.remove("overflow-hidden");
+  });
+
 
     window.initFromHash();
   });
