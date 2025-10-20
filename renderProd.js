@@ -36,7 +36,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionTag.appendChild(card);
       } else {
         // supondo que produto.multiplicador.valor = 40 (ex: combo40)
-        const comboId = `combo${produto.qtd_max}-modal`;
+        const comboId = `combo${produto.id}-modal`;
         const comboNome = produto.nome;
         const sabores = produto.sabores || []; // array com strings dos sabores disponíveis
 
@@ -181,6 +181,7 @@ prodCards().then(() => {
     const max = parseInt(counter.textContent.match(/\/(\d+)/)[1]); 
 
     const step = parseInt(form.dataset.step) || 5;
+    console.log("Step:"+form.dataset.step )
     const qtySpans = form.querySelectorAll(".combo-qty");
 
     let total = 0;
