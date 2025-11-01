@@ -134,6 +134,21 @@
 <section>
 <section class="mb-12" data-section="destaques"><h2 class="title-font text-2xl font-bold mb-6">Os salgados mais pedidos da vovó Lulu</h2><div id="ProdDiv" class="grid md:grid-cols-2 lg:grid-cols-3 gap-6 grid-cols-1 sm:grid-cols-2">
 <script type="module" src="/services/getData.js"></script>
+<div class="product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition" category="bebidas">
+  <div class="h-100" id="drinkCards">
+    <img alt="Exp" class="w-full h-100 object-cover rounded-t-xl" src="https://firebasestorage.googleapis.com/v0/b/sitevovolulu.firebasestorage.app/o/imagensProdutos%2Fcoxinha1.png?alt=media&token=64668f3f-a6f3-4251-a3bc-5e1fdf6268b9" />
+  </div>
+  <div class="p-4">
+    <h3 class="font-bold text-xl mb-2">Escolha seu Refrigerante 350ml</h3>
+    <span class="preco-bebidas font-bold text-lg"></span>
+    <button class="product-card choose-flavor openDrinkModal mt-4 w-full bg-[#3C6E47] text-white py-2 rounded-full font-semibold hover:bg-[#2d5536] transition" data-target="${bebidas.bebidas_disp.id}">
+      Escolher bebida
+    </button>
+  </div>
+  
+</div>
+<script type="module" src="renderBebidas.js"></script>
+
 <script type="module" src="renderProd.js">
 
 </script>
@@ -290,6 +305,8 @@
             Carrinho
         </a>
 </div>
+<!-- Card Bebidas-->
+
 <!-- Modal de sabores (Refrigerante 350ml) -->
 <div class="fixed inset-0 z-[60] hidden" id="refri-modal">
 <!-- overlay -->
@@ -297,11 +314,12 @@
 <!-- container to center -->
 <div class="relative z-[61] flex items-start justify-center min-h-screen p-4">
 <div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 relative">
-<button aria-label="Fechar" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" id="close-refri-modal">
+<button aria-label="Fechar" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700 close-refri-modal">
 <i class="fas fa-times text-2xl"></i>
 </button>
 <h2 class="title-font text-2xl font-bold mb-4">Escolha os Sabores</h2>
 <form class="space-y-3" id="refri-form">
+  <!--
 <div class="flex items-center justify-between p-3 rounded-lg border bg-white">
 <span>Coca Cola</span>
 <div class="flex items-center">
@@ -341,7 +359,7 @@
 <span class="refri-qty bg-[#FCEBD5] w-10 h-8 flex items-center justify-center" data-flavor="Guaraná Antarctica">0</span>
 <button class="refri-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Guaraná Antarctica" type="button">+</button>
 </div>
-</div>
+</div>-->
 <button class="mt-4 w-full bg-[#3C6E47] opacity-50 cursor-not-allowed text-white py-3 rounded-full font-semibold transition" disabled="" id="refri-add" type="submit">
           Adicionar ao Carrinho
         </button>
@@ -350,235 +368,9 @@
 </div>
 </div>
 <script>
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('refri-modal');
-  const form = document.getElementById('refri-form');
-  const addBtn = document.getElementById('refri-add');
-  const closeBtn = document.getElementById('close-refri-modal');
-  
-  const price = 6.50;
 
-  // open modal
-  //Cart.updateCart();
-  document.querySelectorAll('.product-card .choose-flavor').forEach(btn => {
-    btn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-      form.querySelectorAll('.refri-qty').forEach(el => el.textContent = '0');
-      updateAddState();
-    });
-  });
-
-  function closeModal() {
-    modal.classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-    form.querySelectorAll('.refri-qty').forEach(el => el.textContent = '0');
-    updateAddState();
-  }
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  modal.addEventListener('click', (e) => {
-    // first child is the dark overlay
-    if (e.target === modal.firstElementChild) closeModal();
-  });
-
-  form.addEventListener('click', (e) => {
-    const minus = e.target.closest('.refri-minus');
-    const plus  = e.target.closest('.refri-plus');
-    if (!minus && !plus) return;
-    const flavor = (minus || plus).getAttribute('data-flavor');
-    const qtyEl = form.querySelector(`.refri-qty[data-flavor="${CSS.escape(flavor)}"]`);
-    let q = parseInt(qtyEl.textContent) || 0;
-    if (minus) q = Math.max(0, q - 1);
-    if (plus) q = q + 1;
-    qtyEl.textContent = String(q);
-    updateAddState();
-  });
-
-  function updateAddState() {
-    const sum = Array.from(form.querySelectorAll('.refri-qty'))
-      .map(el => parseInt(el.textContent) || 0)
-      .reduce((a,b) => a + b, 0);
-    const enable = sum > 0;
-    addBtn.disabled = !enable;
-    addBtn.classList.toggle('opacity-50', !enable);
-    addBtn.classList.toggle('cursor-not-allowed', !enable);
-  }
-
-  form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const items = Array.from(form.querySelectorAll('.refri-qty'))
-      .map(el => ({ flavor: el.getAttribute('data-flavor'), qty: parseInt(el.textContent) || 0 }))
-      .filter(it => it.qty > 0);
-      
-      if (items.length === 0){console.log("items lenght===0");return;}
-      
-      items.forEach(({flavor, qty}) => {
-          if (window.Cart && typeof Cart.addItem === 'function') {
-              Cart.addItem({ name: `Refrigerante 350ml - ${flavor}`, price, quantity: qty });
-              
-            }
-    });
-    closeModal();
-    //Cart.updateCart;
-  });
-});
 </script>
 
-<!-- Modal: Combo 40 Salgados 10g -->
-<div class="fixed inset-0 z-[60] hidden" id="combo40-modal">
-<div class="absolute inset-0 bg-black bg-opacity-50" data-overlay="combo40"></div>
-<div class="relative z-[61] flex items-start justify-center min-h-screen p-4">
-<div class="w-full max-w-md bg-white rounded-2xl shadow-xl p-6 relative">
-<button aria-label="Fechar" class="absolute top-3 right-3 text-gray-500 hover:text-gray-700" id="close-combo40-modal">
-<i class="fas fa-times text-2xl"></i>
-</button>
-<h2 class="title-font text-2xl font-bold mb-1">Monte seu Combo (40 unidades)</h2>
-<p class="text-sm text-gray-600 mb-4">Adicione de 5 em 5 por sabor. <span class="font-semibold" id="combo40-counter">Selecionados: 0/40</span></p>
-<form class="space-y-3" id="combo40-form">
-<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
-<span>Coxinha</span>
-<div class="flex items-center">
-<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Coxinha" type="button">-</button>
-<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Coxinha">0</span>
-<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Coxinha" type="button">+</button>
-</div>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
-<span>Bolinho de Queijo</span>
-<div class="flex items-center">
-<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Bolinho de Queijo" type="button">-</button>
-<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Bolinho de Queijo">0</span>
-<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Bolinho de Queijo" type="button">+</button>
-</div>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
-<span>Enroladinha de Salsicha</span>
-<div class="flex items-center">
-<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Enroladinha de Salsicha" type="button">-</button>
-<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Enroladinha de Salsicha">0</span>
-<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Enroladinha de Salsicha" type="button">+</button>
-</div>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
-<span>Risoles</span>
-<div class="flex items-center">
-<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Risoles" type="button">-</button>
-<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Risoles">0</span>
-<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Risoles" type="button">+</button>
-</div>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
-<span>Calabresa</span>
-<div class="flex items-center">
-<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Calabresa" type="button">-</button>
-<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Calabresa">0</span>
-<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Calabresa" type="button">+</button>
-</div>
-</div>
-<div class="flex items-center justify-between p-3 rounded-lg border bg-white">
-<span>Bolinha de Carne</span>
-<div class="flex items-center">
-<button class="combo40-minus bg-[#5C4033] text-white w-8 h-8 rounded-l-full" data-flavor="Bolinha de Carne" type="button">-</button>
-<span class="combo40-qty bg-[#FCEBD5] w-12 h-8 flex items-center justify-center" data-flavor="Bolinha de Carne">0</span>
-<button class="combo40-plus bg-[#5C4033] text-white w-8 h-8 rounded-r-full" data-flavor="Bolinha de Carne" type="button">+</button>
-</div>
-</div>
-<button class="mt-4 w-full bg-[#3C6E47] opacity-50 cursor-not-allowed text-white py-3 rounded-full font-semibold transition" disabled="" id="combo40-add" type="submit">
-          Adicionar ao Carrinho
-        </button>
-</form>
-</div>
-</div>
-</div>
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-  const modal = document.getElementById('combo40-modal');
-  const form = document.getElementById('combo40-form');
-  const addBtn = document.getElementById('combo40-add');
-  const closeBtn = document.getElementById('close-combo40-modal');
-  const counterEl = document.getElementById('combo40-counter');
-  const MAX = 40;
-  const STEP = 5;
-  const price = 35.90;
-
-  // Open modal buttons
-  document.querySelectorAll('.product-card .choose-combo40').forEach(btn => {
-    btn.addEventListener('click', () => {
-      modal.classList.remove('hidden');
-      document.body.classList.add('overflow-hidden');
-      // reset quantities
-      form.querySelectorAll('.combo40-qty').forEach(el => el.textContent = '0');
-      updateState();
-    });
-  });
-
-  function closeModal() {
-    modal.classList.add('hidden');
-    document.body.classList.remove('overflow-hidden');
-    // reset as well
-    form.querySelectorAll('.combo40-qty').forEach(el => el.textContent = '0');
-    updateState();
-  }
-
-  if (closeBtn) closeBtn.addEventListener('click', closeModal);
-  // Close on overlay click
-  modal.addEventListener('click', (e) => {
-    if (e.target && e.target.matches('[data-overlay="combo40"]')) closeModal();
-  });
-
-  // Plus/Minus logic
-  form.addEventListener('click', (e) => {
-    const minus = e.target.closest('.combo40-minus');
-    const plus  = e.target.closest('.combo40-plus');
-    if (!minus && !plus) return;
-    const flavor = (minus || plus).getAttribute('data-flavor');
-    const qtyEl = form.querySelector('.combo40-qty[data-flavor="' + CSS.escape(flavor) + '"]');
-    let q = parseInt(qtyEl.textContent) || 0;
-    const currentTotal = getTotal();
-    if (minus) {
-      q = Math.max(0, q - STEP);
-    } else if (plus) {
-      if (currentTotal + STEP > MAX) return;
-      q = q + STEP;
-    }
-    qtyEl.textContent = String(q);
-    updateState();
-  });
-
-  function getTotal() {
-    return Array.from(form.querySelectorAll('.combo40-qty'))
-      .map(el => parseInt(el.textContent) || 0)
-      .reduce((a, b) => a + b, 0);
-  }
-
-  function updateState() {
-    const sum = getTotal();
-    addBtn.disabled = (sum !== MAX);
-    addBtn.classList.toggle('opacity-50', sum !== MAX);
-    addBtn.classList.toggle('cursor-not-allowed', sum !== MAX);
-    if (counterEl) counterEl.textContent = 'Selecionados: ' + sum + '/' + MAX;
-  }
-
-  form.addEventListener('submit', (e) => {
-    e.preventDefault();
-    const total = getTotal();
-    if (total !== MAX) return;
-
-    const items = Array.from(form.querySelectorAll('.combo40-qty'))
-      .map(el => ({ flavor: el.getAttribute('data-flavor'), qty: parseInt(el.textContent) || 0 }))
-      .filter(it => it.qty > 0);
-
-    const breakdown = items.map(it => it.qty + ' ' + it.flavor).join(', ');
-    const name = 'Combo 40 salgados 10g (' + breakdown + ')';
-
-    if (window.Cart && typeof Cart.addItem === 'function') {
-      Cart.addItem({ name: name, price: price, quantity: 1 });
-    }
-    closeModal();
-  });
-});
-</script>
 <script>
 // Fecha o carrinho quando o usuário navega pelos botões da barra mobile
 document.addEventListener('DOMContentLoaded', function(){

@@ -1,3 +1,4 @@
+import { getBebidas, getCombos, getProduct } from "./services/getData.js";
 
 // cart.js — Carrinho compartilhado entre páginas (persistência + UI)
 (function () {
@@ -91,9 +92,35 @@
     if (cartSidebar.classList.contains('cart-open')) closeCart();
     else openCart();
   }
+  async function getItemById(id) {
+  const funcs = [getProduct,getBebidas,  getCombos];
+  for (let f = 0; f < funcs.length; f++) {
+    try {
+      console.log("id -> ",id)
+      const ret = await funcs[f](id);
+      if (ret) {
+        const nome = ret.name || ret.nome || false;
+        const preco = ret.price || ret.preco || false;
+        const disp = ret.disponibilidade ?? true; // se não tiver, assume true
+
+        if (funcs[f].name === "getBebidas") {
+          return { name: nome, price: parseFloat(preco) };
+        } else if (disp === true) {
+          return { name: nome, price: parseFloat(preco) };
+        } else {
+          return { name: false, price: false };
+        }
+      }
+    } catch (e) {
+      // ignora erro e tenta próxima função
+      continue;
+    }
+  }
+  return { name: false, price: false };
+}
 
   // --- Atualiza UI do carrinho ---
-  function updateCart() {
+  async function updateCart() {
     const {
       cartItemsContainer,
       subtotalEl,
@@ -112,31 +139,34 @@
           </div>`;
       } else {
         cartItemsContainer.innerHTML = '';
-        cart.forEach((item, index) => {
-          const itemTotal = item.price * item.quantity;
+        for (let item = 0; item < cart.length; item++) {
+          const { price, name } = await getItemById(cart[item].id);
+          console.log("Item carregado:", cart[item].id, name, price);
+          if (!price) continue;
+          const itemTotal = price * cart[item].quantity;
           subtotal += itemTotal;
 
           const el = document.createElement('div');
           el.className = 'flex justify-between items-center py-3 border-b';
           el.innerHTML = `
             <div class="flex-1">
-              <h4 class="font-medium">${item.name}</h4>
+              <h4 class="font-medium">${name}</h4>
               <div class="flex items-center mt-1">
-                <button class="edit-quantity mr-2 text-xs text-gray-500 hover:text-[#5C4033]" data-index="${index}">
+                <button class="edit-quantity mr-2 text-xs text-gray-500 hover:text-[#5C4033]" data-index="${item}">
                   <i class="fas fa-edit mr-1"></i>Editar
                 </button>
-                <button class="remove-item text-xs text-red-500 hover:text-red-700" data-index="${index}">
+                <button class="remove-item text-xs text-red-500 hover:text-red-700" data-index="${item}">
                   <i class="fas fa-trash-alt mr-1"></i>Remover
                 </button>
               </div>
             </div>
             <div class="text-right">
-              <div class="font-medium">R$ ${item.price.toFixed(2).replace('.', ',')}</div>
-              <div class="text-sm">x${item.quantity}</div>
+              <div class="font-medium">R$ ${price.toFixed(2).replace('.', ',')}</div>
+              <div class="text-sm">x${cart[item].quantity}</div>
               <div class="font-bold">R$ ${itemTotal.toFixed(2).replace('.', ',')}</div>
             </div>`;
           cartItemsContainer.appendChild(el);
-        });
+        };
 
         // listeners para remover/editar itens
         cartItemsContainer.querySelectorAll('.remove-item').forEach(btn => {
@@ -147,16 +177,18 @@
           });
         });
         cartItemsContainer.querySelectorAll('.edit-quantity').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const idx = parseInt(btn.getAttribute('data-index'));
+          btn.addEventListener('click', async (e) => {
+            const idx = parseInt(btn.dataset.index);
             const item = cart[idx];
-            const newQty = prompt(`Quantidade de ${item.name}:`, item.quantity);
+            const { name } = await getItemById(item.id);
+            const newQty = prompt(`Quantidade de ${name}:`, item.quantity);
             if (newQty !== null && !isNaN(newQty) && parseInt(newQty) > 0) {
-              item.quantity = parseInt(newQty);
+              cart[idx].quantity = parseInt(newQty);
               updateCart();
             }
           });
         });
+
       }
     }
 
@@ -175,9 +207,8 @@
   }
 
   // --- API pública para páginas adicionarem itens ---
-  function addItem({ name, price, quantity = 1 }) {
-    if (!name || typeof price !== 'number') return;
-    cart.push({ name, price, quantity });
+  function addItem({ id, quantity = 1 }) {
+    cart.push({ id, quantity });
     updateCart();
     openCart();
   }
@@ -185,7 +216,7 @@
   function clearCart() {
     cart = [];
     updateCart();
-    try { localStorage.removeItem(CART_KEY); } catch (e) {}
+    try { localStorage.removeItem(CART_KEY); } catch (e) { }
   }
 
   function getItems() {
@@ -193,7 +224,7 @@
   }
 
   // --- Bindings globais e inicialização ---
-  function bindUI() {
+  async function bindUI() {
     const {
       closeCartBtn, overlay,
       clearCartBtn, checkoutBtn,
@@ -239,7 +270,7 @@
 
     // Confirmar pedido
     if (checkoutForm && confirmationModal && orderDetails && whatsappBtn) {
-      checkoutForm.addEventListener('submit', (e) => {
+      checkoutForm.addEventListener('submit', async (e) => {
         e.preventDefault();
         const name = qs('#name')?.value || '';
         const phone = qs('#phone')?.value || '';
@@ -256,9 +287,11 @@
           <ul class="list-disc pl-5 mb-2">
         `;
 
-        cart.forEach(item => {
-          orderSummary += `<li>${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}</li>`;
-        });
+        for (const item of cart) {
+          const { name, price } = await getItemById(item.id);
+          orderSummary += `<li>${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}</li>`;
+        }
+
 
         orderSummary += `
           </ul>
@@ -278,9 +311,11 @@
           `*Forma de Pagamento:* ${payment}\n\n` +
           `*Itens do Pedido:*\n`;
 
-        cart.forEach(item => {
-          whatsappMessage += `- ${item.quantity}x ${item.name} - R$ ${(item.price * item.quantity).toFixed(2).replace('.', ',')}\n`;
-        });
+        for (const item of cart) {
+          const { name, price } = await getItemById(item.id);
+          whatsappMessage += `- ${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}\n`;
+        }
+
 
         whatsappMessage += `\n*Subtotal:* R$ ${subtotal.toFixed(2).replace('.', ',')}\n` +
           `*Taxa de Entrega:* ${deliveryFee.toFixed(2).replace('.', ',')}\n` +

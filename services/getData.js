@@ -34,3 +34,15 @@ export async function getCombos(id){
     console.log(combos);
     return combos;
   }
+export async function getAllBebidas() {
+  const response = await fetch("http://localhost:4200/api/bebidas");
+  const bebidas = await response.json();
+  console.log(bebidas);
+  return bebidas;
+}
+export async function getBebidas(id) {
+  const response = await fetch(`http://localhost:4200/api/bebidas/${id}`);
+  const bebidas = await response.json();
+  console.log(bebidas);
+  return bebidas;
+}

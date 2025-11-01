@@ -41,15 +41,16 @@ prodDiv.addEventListener('click', (e) => {
   // -----------------------
   if (target.classList.contains('add-to-cart')) {
     const productCard = target.closest('.product-card');
-    const productName = productCard.querySelector('h3').textContent;
+    const prodId = productCard.dataset.id;
+  /*  const productName = productCard.querySelector('h3').textContent;
     const productPrice = parseFloat(
       productCard.querySelector('span').textContent
         .replace('R$ ', '')
         .replace(',', '.')
-    );
+    );*/
     const quantity = parseInt(productCard.querySelector('.quantity').textContent);
 
-    const product = { name: productName, price: productPrice, quantity };
+    const product = { id:prodId,  quantity: quantity };
     Cart.addItem(product);
   }
 

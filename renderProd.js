@@ -12,6 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement("div");
         card.className = "product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition";
         card.dataset.categoria = produto.tipo.toLowerCase();
+        card.dataset.id = produto.id;
 
         card.innerHTML = `
         <div class="h-100" id="${produto.id}">
@@ -36,7 +37,7 @@ document.addEventListener('DOMContentLoaded', () => {
         sectionTag.appendChild(card);
       } else {
         // supondo que produto.multiplicador.valor = 40 (ex: combo40)
-        const comboId = `combo${produto.qtd_max}-modal`;
+        const comboId = `${produto.id}-modal`;
         const comboNome = produto.nome;
         const sabores = produto.sabores || []; // array com strings dos sabores disponíveis
 
@@ -83,6 +84,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const card = document.createElement("div");
         card.className = "product-card bg-white rounded-xl overflow-hidden shadow-md hover:shadow-lg transition";
         card.dataset.categoria = "combos";
+        modal.dataset.id = produto.id;
 
         card.innerHTML = `
           <div class="h-100" id="${produto.id}">
@@ -188,6 +190,8 @@ prodCards().then(() => {
 
     let span;
     let atual;
+    
+    //cart.addId
     if (plusBtn) {
       span = plusBtn.parentElement.querySelector(".combo-qty");
       atual = parseInt(span.textContent);
