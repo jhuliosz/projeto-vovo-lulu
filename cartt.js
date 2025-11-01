@@ -129,7 +129,7 @@ function updateCart() {
 
 // =====================
 // DELEGAÇÃO DE EVENTOS PARA O CARRINHO
-// =====================
+/* =====================
 document.getElementById('cart-items').addEventListener('click', (e) => {
   const target = e.target.closest('button');
   if (!target) return;
@@ -172,7 +172,7 @@ document.getElementById('cart-items').addEventListener('click', (e) => {
 
     checkoutModal.classList.add('hidden');
     confirmationModal.classList.remove('hidden');
-});
+});*/
 const closeConfirmationBtn = document.querySelector("#close-confirmation");
 closeConfirmationBtn.addEventListener('click', () => {
     confirmationModal.classList.add('hidden');
