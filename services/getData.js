@@ -24,9 +24,13 @@ nome:"",
 tipo:""
 */
 export async function getProduct(id){
+  try{
     const response = await fetch(`http://localhost:4200/api/produto/${id}`);
     const produto = await response.json();
-      return produto;
+    return produto;
+  }catch(error){
+    return false;
+  }
   }
 export async function getCombos(id){
     const response = await fetch(`http://localhost:4200/api/combos/${id}`);

@@ -93,62 +93,73 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
     else openCart();
   }
   async function getItemById(id) {
-  const funcs = [getProduct,getBebidas,  getCombos];
-  for (let f = 0; f < funcs.length; f++) {
-    try {
-      console.log("id -> ",id)
-      const ret = await funcs[f](id);
-      if (ret) {
-        const nome = ret.name || ret.nome || false;
-        const preco = ret.price || ret.preco || false;
-        const disp = ret.disponibilidade ?? true; // se não tiver, assume true
+  const funcs = [getProduct, getBebidas, getCombos];
+  try {
+    for (let f = 0; f < funcs.length; f++) {
+      try {
+        console.log("id ->", id);
+        const ret = await funcs[f](id);
 
-        if (funcs[f].name === "getBebidas") {
-          return { name: nome, price: parseFloat(preco) };
-        } else if (disp === true) {
-          return { name: nome, price: parseFloat(preco) };
-        } else {
-          return { name: false, price: false };
+        if (ret) {
+          const nome = ret.name || ret.nome || false;
+          const preco = ret.price || ret.preco || false;
+          const disp = ret.disponibilidade ?? true;
+
+          if (funcs[f].name === "getBebidas") {
+            return { name: nome, price: parseFloat(preco) };
+          } else if (disp === true && !ret.error) {
+            return { name: nome, price: parseFloat(preco) };
+          } else {
+            continue;
+          }
         }
+      } catch (e) {
+        console.warn(`Erro ao buscar com ${funcs[f].name}:`, e);
+        continue;
       }
-    } catch (e) {
-      // ignora erro e tenta próxima função
-      continue;
     }
+
+    // Se nenhum retornou nada
+    return { name: false, price: false };
+
+  } catch (error) {
+    console.error("Erro em getItemById:", error);
+    return { name: false, price: false };
   }
-  return { name: false, price: false };
 }
 
-  // --- Atualiza UI do carrinho ---
-  async function updateCart() {
-    const {
-      cartItemsContainer,
-      subtotalEl,
-      totalEl,
-      cartCounts
-    } = getUIRefs();
 
-    subtotal = 0;
 
-    if (cartItemsContainer) {
-      if (cart.length === 0) {
-        cartItemsContainer.innerHTML = `
+      // --- Atualiza UI do carrinho ---
+      async function updateCart() {
+        const {
+          cartItemsContainer,
+          subtotalEl,
+          totalEl,
+          cartCounts
+        } = getUIRefs();
+
+        subtotal = 0;
+
+        if (cartItemsContainer) {
+          if (cart.length === 0) {
+            cartItemsContainer.innerHTML = `
           <div class="text-center py-10">
             <i class="fas fa-shopping-cart text-4xl text-gray-300 mb-3"></i>
             <p class="text-gray-500">Seu carrinho está vazio</p>
           </div>`;
-      } else {
-        cartItemsContainer.innerHTML = '';
-        for (let item = 0; item < cart.length; item++) {
-          const { price, name } = await getItemById(cart[item].id);
-          console.log("Item carregado:", cart[item].id, name, price);
-          if (!price) continue;
-          const itemTotal = price * cart[item].quantity;
-          subtotal += itemTotal;
+          } else {
+            cartItemsContainer.innerHTML = '';
+            for (let item = 0; item < cart.length; item++) {
+              const { name, price } = await getItemById(cart[item].id);
+              console.log("Item carregado:", cart[item].id, name, price);
+              if (!price) continue;
+              const itemTotal = price * cart[item].quantity;
+              subtotal += itemTotal;
 
-          const el = document.createElement('div');
-          el.className = 'flex justify-between items-center py-3 border-b';
-          el.innerHTML = `
+              const el = document.createElement('div');
+              el.className = 'flex justify-between items-center py-3 border-b';
+              el.innerHTML = `
             <div class="flex-1">
               <h4 class="font-medium">${name}</h4>
               <div class="flex items-center mt-1">
@@ -165,119 +176,125 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
               <div class="text-sm">x${cart[item].quantity}</div>
               <div class="font-bold">R$ ${itemTotal.toFixed(2).replace('.', ',')}</div>
             </div>`;
-          cartItemsContainer.appendChild(el);
-        };
+              cartItemsContainer.appendChild(el);
+            };
 
-        // listeners para remover/editar itens
-        cartItemsContainer.querySelectorAll('.remove-item').forEach(btn => {
-          btn.addEventListener('click', (e) => {
-            const idx = parseInt(btn.getAttribute('data-index'));
-            cart.splice(idx, 1);
-            updateCart();
-          });
-        });
-        cartItemsContainer.querySelectorAll('.edit-quantity').forEach(btn => {
-          btn.addEventListener('click', async (e) => {
-            const idx = parseInt(btn.dataset.index);
-            const item = cart[idx];
-            const { name } = await getItemById(item.id);
-            const newQty = prompt(`Quantidade de ${name}:`, item.quantity);
-            if (newQty !== null && !isNaN(newQty) && parseInt(newQty) > 0) {
-              cart[idx].quantity = parseInt(newQty);
-              updateCart();
-            }
-          });
-        });
+            // listeners para remover/editar itens
+            cartItemsContainer.querySelectorAll('.remove-item').forEach(btn => {
+              btn.addEventListener('click', (e) => {
+                const idx = parseInt(btn.getAttribute('data-index'));
+                cart.splice(idx, 1);
+                updateCart();
+              });
+            });
+            cartItemsContainer.querySelectorAll('.edit-quantity').forEach(btn => {
+              btn.addEventListener('click', async (e) => {
+                const idx = parseInt(btn.dataset.index);
+                const item = cart[idx];
+                const { name } = await getItemById(item.id);
+                const newQty = prompt(`Quantidade de ${name}:`, item.quantity);
+                if (newQty !== null && !isNaN(newQty) && parseInt(newQty) > 0) {
+                  cart[idx].quantity = parseInt(newQty);
+                  updateCart();
+                }
+              });
+            });
 
+          }
+        }
+
+        // Atualiza contadores (header + mobile)
+        if (cartCounts && cartCounts.length) {
+          const count = cart.reduce((t, it) => t + it.quantity, 0);
+          cartCounts.forEach(span => span.textContent = String(count));
+        }
+
+        // Subtotais/total
+        if (subtotalEl) subtotalEl.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
+        if (totalEl) totalEl.textContent = `R$ ${(subtotal + deliveryFee).toFixed(2).replace('.', ',')}`;
+
+        // Persiste
+        saveCart();
       }
-    }
 
-    // Atualiza contadores (header + mobile)
-    if (cartCounts && cartCounts.length) {
-      const count = cart.reduce((t, it) => t + it.quantity, 0);
-      cartCounts.forEach(span => span.textContent = String(count));
-    }
-
-    // Subtotais/total
-    if (subtotalEl) subtotalEl.textContent = `R$ ${subtotal.toFixed(2).replace('.', ',')}`;
-    if (totalEl) totalEl.textContent = `R$ ${(subtotal + deliveryFee).toFixed(2).replace('.', ',')}`;
-
-    // Persiste
-    saveCart();
-  }
-
-  // --- API pública para páginas adicionarem itens ---
-  function addItem({ id, quantity = 1 }) {
+      // --- API pública para páginas adicionarem itens ---
+      function addItem({ id, quantity = 1 }) {
+  const existing = cart.find(item => item.id === id);
+  if (existing) {
+    existing.quantity += quantity;
+  } else {
     cart.push({ id, quantity });
-    updateCart();
-    openCart();
   }
+  updateCart();
+  openCart();
+}
 
-  function clearCart() {
-    cart = [];
-    updateCart();
-    try { localStorage.removeItem(CART_KEY); } catch (e) { }
-  }
 
-  function getItems() {
-    return cart.slice();
-  }
-
-  // --- Bindings globais e inicialização ---
-  async function bindUI() {
-    const {
-      closeCartBtn, overlay,
-      clearCartBtn, checkoutBtn,
-      checkoutModal, closeCheckoutBtn,
-      confirmationModal, closeConfirmationBtn,
-      checkoutForm, orderDetails, whatsappBtn
-    } = getUIRefs();
-
-    // Delegação para qualquer .cart-btn (header/mobile)
-    document.addEventListener('click', (e) => {
-      const btn = e.target.closest('.cart-btn');
-      if (btn) {
-        e.preventDefault();
-        toggleCart();
+      function clearCart() {
+        cart = [];
+        updateCart();
+        try { localStorage.removeItem(CART_KEY); } catch (e) { }
       }
-    });
 
-    if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
-    if (overlay) overlay.addEventListener('click', closeCart);
+      function getItems() {
+        return cart.slice();
+      }
 
-    // Limpar carrinho
-    if (clearCartBtn) {
-      clearCartBtn.addEventListener('click', () => {
-        if (confirm('Tem certeza que deseja limpar o carrinho?')) clearCart();
-      });
-    }
+      // --- Bindings globais e inicialização ---
+      async function bindUI() {
+        const {
+          closeCartBtn, overlay,
+          clearCartBtn, checkoutBtn,
+          checkoutModal, closeCheckoutBtn,
+          confirmationModal, closeConfirmationBtn,
+          checkoutForm, orderDetails, whatsappBtn
+        } = getUIRefs();
 
-    // Checkout
-    if (checkoutBtn && checkoutModal) {
-      checkoutBtn.addEventListener('click', () => {
-        if (cart.length === 0) { alert('Seu carrinho está vazio!'); return; }
-        closeCart();
-        checkoutModal.classList.remove('hidden');
-        document.body.classList.add('overflow-hidden');
-      });
-    }
-    if (closeCheckoutBtn && checkoutModal) {
-      closeCheckoutBtn.addEventListener('click', () => {
-        checkoutModal.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-      });
-    }
+        // Delegação para qualquer .cart-btn (header/mobile)
+        document.addEventListener('click', (e) => {
+          const btn = e.target.closest('.cart-btn');
+          if (btn) {
+            e.preventDefault();
+            toggleCart();
+          }
+        });
 
-    // Confirmar pedido
-    if (checkoutForm && confirmationModal && orderDetails && whatsappBtn) {
-      checkoutForm.addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const name = qs('#name')?.value || '';
-        const phone = qs('#phone')?.value || '';
-        const address = qs('#address')?.value || '';
-        const payment = (document.querySelector('input[name="payment"]:checked')?.value) || '';
+        if (closeCartBtn) closeCartBtn.addEventListener('click', closeCart);
+        if (overlay) overlay.addEventListener('click', closeCart);
 
-        let orderSummary = `
+        // Limpar carrinho
+        if (clearCartBtn) {
+          clearCartBtn.addEventListener('click', () => {
+            if (confirm('Tem certeza que deseja limpar o carrinho?')) clearCart();
+          });
+        }
+
+        // Checkout
+        if (checkoutBtn && checkoutModal) {
+          checkoutBtn.addEventListener('click', () => {
+            if (cart.length === 0) { alert('Seu carrinho está vazio!'); return; }
+            closeCart();
+            checkoutModal.classList.remove('hidden');
+            document.body.classList.add('overflow-hidden');
+          });
+        }
+        if (closeCheckoutBtn && checkoutModal) {
+          closeCheckoutBtn.addEventListener('click', () => {
+            checkoutModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+          });
+        }
+
+        // Confirmar pedido
+        if (checkoutForm && confirmationModal && orderDetails && whatsappBtn) {
+          checkoutForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const name = qs('#name')?.value || '';
+            const phone = qs('#phone')?.value || '';
+            const address = qs('#address')?.value || '';
+            const payment = (document.querySelector('input[name="payment"]:checked')?.value) || '';
+
+            let orderSummary = `
           <p><strong>Cliente:</strong> ${name}</p>
           <p><strong>Telefone:</strong> ${phone}</p>
           <p><strong>Endereço:</strong> ${address}</p>
@@ -287,13 +304,13 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
           <ul class="list-disc pl-5 mb-2">
         `;
 
-        for (const item of cart) {
-          const { name, price } = await getItemById(item.id);
-          orderSummary += `<li>${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}</li>`;
-        }
+            for (const item of cart) {
+              const { name, price } = await getItemById(item.id);
+              orderSummary += `<li>${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}</li>`;
+            }
 
 
-        orderSummary += `
+            orderSummary += `
           </ul>
           <hr class="my-2">
           <p><strong>Subtotal:</strong> R$ ${subtotal.toFixed(2).replace('.', ',')}</p>
@@ -301,59 +318,59 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
           <p class="font-bold"><strong>Total:</strong> R$ ${(subtotal + deliveryFee).toFixed(2).replace('.', ',')}</p>
         `;
 
-        orderDetails.innerHTML = orderSummary;
+            orderDetails.innerHTML = orderSummary;
 
-        // WhatsApp message
-        let whatsappMessage = `Olá Vovó Lulu! Gostaria de fazer um pedido:\n\n` +
-          `*Nome:* ${name}\n` +
-          `*Telefone:* ${phone}\n` +
-          `*Endereço:* ${address}\n` +
-          `*Forma de Pagamento:* ${payment}\n\n` +
-          `*Itens do Pedido:*\n`;
+            // WhatsApp message
+            let whatsappMessage = `Olá Vovó Lulu! Gostaria de fazer um pedido:\n\n` +
+              `*Nome:* ${name}\n` +
+              `*Telefone:* ${phone}\n` +
+              `*Endereço:* ${address}\n` +
+              `*Forma de Pagamento:* ${payment}\n\n` +
+              `*Itens do Pedido:*\n`;
 
-        for (const item of cart) {
-          const { name, price } = await getItemById(item.id);
-          whatsappMessage += `- ${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}\n`;
+            for (const item of cart) {
+              const { name, price } = await getItemById(item.id);
+              whatsappMessage += `- ${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}\n`;
+            }
+
+
+            whatsappMessage += `\n*Subtotal:* R$ ${subtotal.toFixed(2).replace('.', ',')}\n` +
+              `*Taxa de Entrega:* ${deliveryFee.toFixed(2).replace('.', ',')}\n` +
+              `*Total:* R$ ${(subtotal + deliveryFee).toFixed(2).replace('.', ',')}\n\n` +
+              `Por favor, confirmem meu pedido! Obrigado!`;
+
+            if (whatsappBtn) {
+              whatsappBtn.href = `https://wa.me/5511953717180?text=${encodeURIComponent(whatsappMessage)}`;
+            }
+
+            checkoutModal.classList.add('hidden');
+            confirmationModal.classList.remove('hidden');
+          });
         }
 
-
-        whatsappMessage += `\n*Subtotal:* R$ ${subtotal.toFixed(2).replace('.', ',')}\n` +
-          `*Taxa de Entrega:* ${deliveryFee.toFixed(2).replace('.', ',')}\n` +
-          `*Total:* R$ ${(subtotal + deliveryFee).toFixed(2).replace('.', ',')}\n\n` +
-          `Por favor, confirmem meu pedido! Obrigado!`;
-
-        if (whatsappBtn) {
-          whatsappBtn.href = `https://wa.me/5511953717180?text=${encodeURIComponent(whatsappMessage)}`;
+        if (closeConfirmationBtn && confirmationModal) {
+          closeConfirmationBtn.addEventListener('click', () => {
+            confirmationModal.classList.add('hidden');
+            document.body.classList.remove('overflow-hidden');
+            clearCart(); // limpa e remove do storage
+          });
         }
+      }
 
-        checkoutModal.classList.add('hidden');
-        confirmationModal.classList.remove('hidden');
+      // API pública
+      window.Cart = {
+        addItem,
+        clear: clearCart,
+        getItems,
+        update: updateCart,
+        open: openCart,
+        close: closeCart,
+        toggle: toggleCart
+      };
+
+      // Inicializa quando a página carregar
+      document.addEventListener('DOMContentLoaded', () => {
+        loadCart();
+        bindUI();
       });
-    }
-
-    if (closeConfirmationBtn && confirmationModal) {
-      closeConfirmationBtn.addEventListener('click', () => {
-        confirmationModal.classList.add('hidden');
-        document.body.classList.remove('overflow-hidden');
-        clearCart(); // limpa e remove do storage
-      });
-    }
-  }
-
-  // API pública
-  window.Cart = {
-    addItem,
-    clear: clearCart,
-    getItems,
-    update: updateCart,
-    open: openCart,
-    close: closeCart,
-    toggle: toggleCart
-  };
-
-  // Inicializa quando a página carregar
-  document.addEventListener('DOMContentLoaded', () => {
-    loadCart();
-    bindUI();
-  });
-})();
+    }) ();
