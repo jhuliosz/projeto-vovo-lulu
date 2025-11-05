@@ -45,6 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const modal = document.createElement("div");
         modal.className = "fixed inset-0 z-[60] hidden";
         modal.id = comboId;
+        modal.dataset.prodId = produto.id;
 
         modal.innerHTML = `
   <div class="absolute inset-0 bg-black bg-opacity-50" data-overlay="${comboId}"></div>
@@ -257,8 +258,8 @@ prodCards().then(() => {
     const comboDetails = flavors.join(", ");
 
     const product = {
-      name: `${comboName} (${comboDetails})`,
-      price: comboPrice,
+      id: modal.dataset.prodId,
+      details: comboDetails,
       quantity: 1, // cada combo conta como 1 item
     };
 

@@ -6,6 +6,7 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
 
   // Estado em memória
   let cart = [];
+  let updateTimeout = null;
   let subtotal = 0;
   const deliveryFee = 5;
 
@@ -92,7 +93,7 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
     if (cartSidebar.classList.contains('cart-open')) closeCart();
     else openCart();
   }
-  async function getItemById(id) {
+  async function getItemById(id, details = false) {
   const funcs = [getProduct, getBebidas, getCombos];
   try {
     for (let f = 0; f < funcs.length; f++) {
@@ -100,16 +101,18 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
         console.log("id ->", id);
         const ret = await funcs[f](id);
 
-        if (ret) {
+        if (ret.name || ret.nome) {
           const nome = ret.name || ret.nome || false;
           const preco = ret.price || ret.preco || false;
           const disp = ret.disponibilidade ?? true;
 
           if (funcs[f].name === "getBebidas") {
             return { name: nome, price: parseFloat(preco) };
+          } else if(disp === true && !ret.error && details){
+            return { name: `${nome}(${details})`, price: parseFloat(preco) };
           } else if (disp === true && !ret.error) {
             return { name: nome, price: parseFloat(preco) };
-          } else {
+          }else {
             continue;
           }
         }
@@ -128,6 +131,18 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
   }
 }
 
+async function getComboById(id, details) {
+  try{
+    const ret = await getCombos(id);
+              const nome = ret.name || ret.nome || false;
+          const preco = ret.price || ret.preco || false;
+
+          return {name: `${nome}(${details})`, price: preco};
+  }catch(error){
+    return { name: false, price: false };
+
+  }
+}
 
 
       // --- Atualiza UI do carrinho ---
@@ -151,7 +166,8 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
           } else {
             cartItemsContainer.innerHTML = '';
             for (let item = 0; item < cart.length; item++) {
-              const { name, price } = await getItemById(cart[item].id);
+              const details = cart[item].details || false;
+                const { name, price } = await getItemById(cart[item].id, details ); 
               console.log("Item carregado:", cart[item].id, name, price);
               if (!price) continue;
               const itemTotal = price * cart[item].quantity;
@@ -218,14 +234,17 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
       }
 
       // --- API pública para páginas adicionarem itens ---
-      function addItem({ id, quantity = 1 }) {
+      function addItem({ id, details = false, quantity = 1 }) {
   const existing = cart.find(item => item.id === id);
-  if (existing) {
+  if (existing && !details) {
     existing.quantity += quantity;
   } else {
-    cart.push({ id, quantity });
+    cart.push({ id, details, quantity });
   }
-  updateCart();
+  clearTimeout(updateTimeout);
+  updateTimeout = setTimeout(() => {
+    updateCart();
+  }, 100);
   openCart();
 }
 
@@ -305,8 +324,12 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
         `;
 
             for (const item of cart) {
-              const { name, price } = await getItemById(item.id);
-              orderSummary += `<li>${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}</li>`;
+              const { name,details, price } = await getItemById(item.id);
+              if(item.details){
+                              orderSummary += `<li>${item.quantity}x ${name}(${item.details}) - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}</li>`;
+              }else{
+                orderSummary += `<li>${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}</li>`;
+              }
             }
 
 
@@ -330,7 +353,12 @@ import { getBebidas, getCombos, getProduct } from "./services/getData.js";
 
             for (const item of cart) {
               const { name, price } = await getItemById(item.id);
-              whatsappMessage += `- ${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}\n`;
+              if(item.details){
+                whatsappMessage += `- ${item.quantity}x ${name}(${item.details}) - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}\n`;
+
+              }else{
+                whatsappMessage += `- ${item.quantity}x ${name} - R$ ${(price * item.quantity).toFixed(2).replace('.', ',')}\n`;
+              }
             }
 
 

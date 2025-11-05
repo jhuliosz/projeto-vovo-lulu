@@ -33,20 +33,32 @@ export async function getProduct(id){
   }
   }
 export async function getCombos(id){
+  try{
     const response = await fetch(`http://localhost:4200/api/combos/${id}`);
     const combos = await response.json();
     console.log(combos);
     return combos;
+  }catch(error){
+    return false;
+  }
   }
 export async function getAllBebidas() {
+  try{
   const response = await fetch("http://localhost:4200/api/bebidas");
   const bebidas = await response.json();
   console.log(bebidas);
   return bebidas;
+}catch(error){
+  return false;
+}
 }
 export async function getBebidas(id) {
+  try{
   const response = await fetch(`http://localhost:4200/api/bebidas/${id}`);
   const bebidas = await response.json();
   console.log(bebidas);
   return bebidas;
+  }catch(error){
+    return false;
+  }
 }
