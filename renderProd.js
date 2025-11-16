@@ -105,13 +105,13 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  const allowed = ['todos', 'assados', 'fritos', 'combos', 'bebidas'];
+  const allowed = ['todos', 'assados', 'fritos', 'combo', 'doces'];
 
   function applyFilter(filter) {
     const f = (filter || 'todos').toLowerCase();
 
     document.querySelectorAll('.category-card').forEach(a => {
-      const active = (a.dataset.filter || '').toLowerCase() === f;
+      const active = ((a.dataset.filter || '').toLowerCase() === f) || (f === 'combo' && (a.dataset.filter || '').toLowerCase() === 'combo_fixo');
       a.classList.toggle('ring-2', active);
       a.classList.toggle('ring-[#5C4033]', active);
     });
@@ -119,7 +119,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const cards = document.querySelectorAll('.product-card');
     cards.forEach(card => {
       const cat = (card.dataset.categoria || '').toLowerCase();
-      card.style.display = (f === 'todos' || cat === f) ? '' : 'none';
+      card.style.display = (f === 'todos' || cat === f || (f === 'combo' && cat === 'combo_fixo')) ? '' : 'none';
     });
   }
 
