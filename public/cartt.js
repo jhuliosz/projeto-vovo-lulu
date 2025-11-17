@@ -24,8 +24,8 @@ function toggleCart() {
 }
 
 // Usa Cart.toggleCart se ele já existir
-closeCartBtn.addEventListener('click', Cart.toggleCart);
-overlay.addEventListener('click', Cart.toggleCart);
+//closeCartBtn.addEventListener('click', Cart.toggleCart);
+//overlay.addEventListener('click', Cart.toggleCart);
 
 // =====================
 // DELEGAÇÃO DE EVENTOS PARA PRODUTOS

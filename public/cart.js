@@ -1,4 +1,4 @@
-import { getBebidas, getCombos, getProduct } from "./services/getData.js";
+import { getBebidas, getCombos, getProduct } from "../services/getData.js";
 
 // cart.js — Carrinho compartilhado entre páginas (persistência + UI)
 (function () {

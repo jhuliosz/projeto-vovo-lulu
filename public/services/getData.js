@@ -1,5 +1,7 @@
+import { BASE_URL } from "../config.js";
+
 export async function getAllDisponiveis(){
-    const response = await fetch("http://localhost:4200/api/disponiveis");
+    const response = await fetch(`${BASE_URL}/disponiveis`);
     const produtos = await response.json();
     console.log(produtos);
     return produtos.prod_disp;
@@ -25,7 +27,7 @@ tipo:""
 */
 export async function getProduct(id){
   try{
-    const response = await fetch(`http://localhost:4200/api/produto/${id}`);
+    const response = await fetch(`${BASE_URL}/produto/${id}`);
     const produto = await response.json();
     return produto;
   }catch(error){
@@ -34,7 +36,7 @@ export async function getProduct(id){
   }
 export async function getCombos(id){
   try{
-    const response = await fetch(`http://localhost:4200/api/combos/${id}`);
+    const response = await fetch(`${BASE_URL}/combos/${id}`);
     const combos = await response.json();
     console.log(combos);
     return combos;
@@ -44,7 +46,7 @@ export async function getCombos(id){
   }
 export async function getAllBebidas() {
   try{
-  const response = await fetch("http://localhost:4200/api/bebidas");
+  const response = await fetch(`${BASE_URL}/bebidas`);
   const bebidas = await response.json();
   console.log(bebidas);
   return bebidas;
@@ -54,7 +56,7 @@ export async function getAllBebidas() {
 }
 export async function getBebidas(id) {
   try{
-  const response = await fetch(`http://localhost:4200/api/bebidas/${id}`);
+  const response = await fetch(`${BASE_URL}/bebidas/${id}`);
   const bebidas = await response.json();
   console.log(bebidas);
   return bebidas;

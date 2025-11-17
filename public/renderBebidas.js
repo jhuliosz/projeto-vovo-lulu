@@ -1,4 +1,4 @@
-import { getAllBebidas } from "./services/getData.js";
+import { getAllBebidas } from "../services/getData.js";
 
 document.addEventListener("DOMContentLoaded", async () => {
   const modal = document.getElementById("refri-modal");
