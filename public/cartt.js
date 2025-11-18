@@ -168,7 +168,7 @@ document.getElementById('cart-items').addEventListener('click', (e) => {
     whatsappMessage += `*Total:* R$ ${(subtotal + deliveryFee).toFixed(2).replace('.', ',')}\n\n`;
     whatsappMessage += `Por favor, confirmem meu pedido! Obrigado!`;
 
-    whatsappBtn.href = `https://wa.me/5511953717180?text=${encodeURIComponent(whatsappMessage)}`;
+    whatsappBtn.href = `https://wa.me/5511972636956?text=${encodeURIComponent(whatsappMessage)}`;
 
     checkoutModal.classList.add('hidden');
     confirmationModal.classList.remove('hidden');

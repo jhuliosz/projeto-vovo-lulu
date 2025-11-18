@@ -368,7 +368,7 @@ async function getComboById(id, details) {
               `Por favor, confirmem meu pedido! Obrigado!`;
 
             if (whatsappBtn) {
-              whatsappBtn.href = `https://wa.me/5511953717180?text=${encodeURIComponent(whatsappMessage)}`;
+              whatsappBtn.href = `https://wa.me/5511972636956?text=${encodeURIComponent(whatsappMessage)}`;
             }
 
             checkoutModal.classList.add('hidden');
